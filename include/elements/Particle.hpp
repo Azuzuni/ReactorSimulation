@@ -8,4 +8,5 @@ struct Particle {
   cnf::Color color{cnf::kParticleColor};
   float momentumX{};
   float momentumY{};
+  bool collided{false};
 };

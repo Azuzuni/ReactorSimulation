@@ -29,7 +29,10 @@ struct Color {
     a = {static_cast<uint8_t>((rgba) & 0xFF)};
     return *this;
   }
-};
 
+  inline bool operator==(const uint32_t color) {
+    return (static_cast<uint32_t>((a << 24) | (g << 16) | (b << 8) | (a)) == color);
+  }
+};
 
 }; // namespace cnf

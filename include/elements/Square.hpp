@@ -14,4 +14,5 @@ struct Fuel {
   cnf::PosType y{};
   float r{};
   cnf::Color color{0x0000BBFF};
+  bool triggered{false};
 };
