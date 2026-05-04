@@ -15,7 +15,7 @@ class Collision {
   Collision &operator=(const Collision &) = delete;
   ~Collision() = delete;
 
-  constexpr static bool FuelParticle(const Fuel&, const Particle&);
+  static bool FuelParticle(const Fuel&, const Particle&);
 public:
   static bool OnEnter(const Collider&, const Collider&);
 };

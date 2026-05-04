@@ -2,6 +2,10 @@
 #include "elements/Particle.hpp"
 #include "elements/Square.hpp"
 #include "utils/RenderBackend.hpp"
+#include <atomic>
+#include <cstddef>
+#include <cstdint>
+#include <mutex>
 #include <utility>
 #include <vector>
 
@@ -16,11 +20,18 @@
  */
 class ChernobylSimulator {
   ChernobylSimulator() = delete;
+  ChernobylSimulator(ChernobylSimulator &&) = delete;
   ChernobylSimulator(const ChernobylSimulator &) = delete;
+  ChernobylSimulator &operator=(ChernobylSimulator &&) = delete;
   ChernobylSimulator &operator=(const ChernobylSimulator &) = delete;
 
-  std::vector<Particle> mParticles{};
-  std::vector<Fuel> mFuels{};
+  static constexpr size_t kBufferCount{3};
+  std::vector<Particle> mParticles[kBufferCount]{};
+  std::vector<Fuel> mFuels[kBufferCount]{};
+  std::atomic<uint8_t> mActiveBuffer{0};
+  std::atomic<bool> mWorkerRunning{true};
+  std::mutex mAccessMut{};
+
   RenderBackend mRenderer;
 
   void Logic();
@@ -32,9 +43,12 @@ public:
    */
   template <typename... Args>
   constexpr ChernobylSimulator(Args &&...args)
-      : mRenderer{std::forward<Args>(args)...} {}
-  ChernobylSimulator(ChernobylSimulator &&) = default;
-  ChernobylSimulator &operator=(ChernobylSimulator &&) = default;
+      : mRenderer{std::forward<Args>(args)...} {
+    for(auto& each : mParticles)
+      each.reserve(100000);
+    for(auto& each : mFuels)
+      each.reserve(100000);
+  }
   ~ChernobylSimulator() = default;
 
   /**

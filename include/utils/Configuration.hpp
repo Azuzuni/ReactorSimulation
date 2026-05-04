@@ -10,7 +10,7 @@
 
 namespace cnf {
 
-using PosType = float;
+using PosType = int;
 
 constexpr Color kBackgroundColor{0x444444FF};
 constexpr Color kParticleColor{0xFF000044};

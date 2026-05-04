@@ -4,9 +4,11 @@
 #include "physics/Collision.hpp"
 #include "utils/Configuration.hpp"
 #include <algorithm>
+#include <atomic>
 #include <chrono>
-#include <cstddef>
+#include <cstdint>
 #include <random>
+#include <thread>
 
 // ===================================================
 // 1. Constructor / Destructor
@@ -16,60 +18,63 @@
 // 2. Implementations
 // ===================================================
 
-std::mt19937
-    gen(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+std::mt19937 gen(static_cast<std::mt19937::result_type>(
+    std::chrono::steady_clock::now().time_since_epoch().count()));
 std::uniform_real_distribution<float> dist(0, 1);
 
 void ChernobylSimulator::Logic() {
-  Fuel last{};
-  for (auto &particle : mParticles) {
-    particle.y += particle.momentumY;
-    particle.x += particle.momentumX;
+  using clock = std::chrono::high_resolution_clock;
+  using seconds = std::chrono::duration<float>;
 
-    for (auto &fuel : mFuels) {
-      if (fuel.triggered)
-        continue;
-      if (!Collision::OnEnter(fuel, particle))
-        continue;
-      particle.momentumY *= -1;
+  const float tickRate = 120.0f;
+  const float dt = 1.0f / tickRate;
 
-      fuel.triggered = true;
-      particle.collided = true;
-      fuel.color = {0x000000FF};
+  auto previous = clock::now();
+  float accumulator = 0.0f;
 
-      last = fuel;
+  while (mWorkerRunning.load(std::memory_order_relaxed)) {
+    auto now = clock::now();
+    seconds frameTime = now - previous;
+    previous = now;
+
+    accumulator += frameTime.count();
+
+    while (accumulator >= dt) {
+      uint8_t current{mActiveBuffer.load(std::memory_order_acquire)};
+      uint8_t next = (current + 1) % kBufferCount;
+
+      auto &particles{mParticles[current]};
+
+      for (auto &particle : particles) {
+        particle.x += particle.momentumX;
+        particle.y += particle.momentumY;
+      }
+      mActiveBuffer.store(next, std::memory_order_release);
+      accumulator -= dt;
     }
-  }
-
-  mParticles.erase(
-      std::remove_if(mParticles.begin(), mParticles.end(),
-                     [](Particle &x) -> bool { return x.collided; }),
-      mParticles.end());
-
-  if (last.triggered) {
-    mParticles.emplace_back(
-        Particle{last.x, last.y, last.r, {0x777777FF}, 3, -3});
-    mParticles.emplace_back(
-        Particle{last.x, last.y, last.r, {0x777777FF}, 3, 0});
-    mParticles.emplace_back(
-        Particle{last.x, last.y, last.r, {0x777777FF}, 3, 3});
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }
 }
 
 // ---------------------------------------------------
 
 void ChernobylSimulator::Render() {
-  mRenderer.StartFrame();
+  while (!mRenderer.ShouldClose()) {
+    mRenderer.StartFrame();
+    mRenderer.Clear(cnf::kBackgroundColor);
 
-  mRenderer.Clear(cnf::kBackgroundColor);
+    uint8_t current = mActiveBuffer.load(std::memory_order_acquire);
+    const auto &fuels{mFuels[current]};
+    const auto &particles{mParticles[current]};
 
-  for (const auto &fuel : mFuels)
-    mRenderer.Circle(fuel.x, fuel.y, fuel.r, fuel.color);
+    for (const auto &fuel : fuels)
+      mRenderer.Circle(fuel.x, fuel.y, fuel.r, fuel.color);
 
-  for (const auto &particle : mParticles)
-    mRenderer.Circle(particle.x, particle.y, particle.r, particle.color);
+    for (const auto &particle : particles)
+      mRenderer.Circle(particle.x, particle.y, particle.r, particle.color);
 
-  mRenderer.EndFrame();
+    mRenderer.EndFrame();
+  }
 }
 
 // ---------------------------------------------------
@@ -77,32 +82,40 @@ void ChernobylSimulator::Render() {
 void ChernobylSimulator::Run() {
   // auto width{mRenderer.GetWidthOfWindow()};
   auto height{mRenderer.GetHeightOfWindow()};
-  mParticles.push_back(
-      Particle(10, height * 0.5 - 20, 20, cnf::Color{0x777777FF}, 3, 0));
+  mParticles[0].push_back(Particle(10,
+                                   static_cast<cnf::PosType>(height * 0.5 - 20),
+                                   20, cnf::Color{0xFFFFFFAA}, 3, 0));
 
-  mFuels.push_back(Fuel(300, height * 0.5 - 220, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(600, height * 0.5 - 220, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(900, height * 0.5 - 220, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(1200, height * 0.5 - 220, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(1500, height * 0.5 - 220, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(1800, height * 0.5 - 220, 40, cnf::Color{0x3333FFFF}));
+  mParticles[1].push_back(Particle(10,
+                                   static_cast<cnf::PosType>(height * 0.5 - 20),
+                                   20, cnf::Color{0xFFFFFFAA}, 3, 0));
 
-  mFuels.push_back(Fuel(300, height * 0.5 - 20, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(600, height * 0.5 - 20, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(900, height * 0.5 - 20, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(1200, height * 0.5 - 20, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(1500, height * 0.5 - 20, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(1800, height * 0.5 - 20, 40, cnf::Color{0x3333FFFF}));
+  mParticles[2].push_back(Particle(10,
+                                   static_cast<cnf::PosType>(height * 0.5 - 20),
+                                   20, cnf::Color{0xFFFFFFAA}, 3, 0));
 
-  mFuels.push_back(Fuel(300, height * 0.5 + 180, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(600, height * 0.5 + 180, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(900, height * 0.5 + 180, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(1200, height * 0.5 + 180, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(1500, height * 0.5 + 180, 40, cnf::Color{0x3333FFFF}));
-  mFuels.push_back(Fuel(1800, height * 0.5 + 180, 40, cnf::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(300, static_cast<cnf::PosType>(height * 0.5
+  // - 20), 40,
+  //                       cnf::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(600, static_cast<cnf::PosType>(height * 0.5
+  // - 20), 40,
+  //                       cnf::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(900, static_cast<cnf::PosType>(height * 0.5
+  // - 20), 40,
+  //                       cnf::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(1200, static_cast<cnf::PosType>(height *
+  // 0.5 - 20), 40,
+  //                       cnf::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(1500, static_cast<cnf::PosType>(height *
+  // 0.5 - 20), 40,
+  //                       cnf::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(1800, static_cast<cnf::PosType>(height *
+  // 0.5 - 20), 40,
+  //                       cnf::Color{0x3333FFFF}));
 
-  while (!mRenderer.ShouldClose()) {
-    Logic();
-    Render();
-  }
+  std::thread worker(&ChernobylSimulator::Logic, this);
+  Render();
+
+  mWorkerRunning.store(false, std::memory_order_relaxed);
+  worker.join();
 }

@@ -6,7 +6,7 @@ struct Particle {
   cnf::PosType y{};
   float r{};
   cnf::Color color{cnf::kParticleColor};
-  float momentumX{};
-  float momentumY{};
+  cnf::PosType momentumX{0};
+  cnf::PosType momentumY{0};
   bool collided{false};
 };
