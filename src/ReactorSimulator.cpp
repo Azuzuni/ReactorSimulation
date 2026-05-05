@@ -1,12 +1,9 @@
-#include "ChernobylSimulator.hpp"
+#include "ReactorSimulator.hpp"
 #include "elements/Particle.hpp"
-#include "elements/Square.hpp"
-#include "physics/Collision.hpp"
 #include "utils/Configuration.hpp"
-#include <algorithm>
 #include <atomic>
 #include <chrono>
-#include <cstdint>
+#include <cstddef>
 #include <random>
 #include <thread>
 
@@ -22,7 +19,7 @@ std::mt19937 gen(static_cast<std::mt19937::result_type>(
     std::chrono::steady_clock::now().time_since_epoch().count()));
 std::uniform_real_distribution<float> dist(0, 1);
 
-void ChernobylSimulator::Logic() {
+void ReactorSimulator::Logic() {
   using clock = std::chrono::high_resolution_clock;
   using seconds = std::chrono::duration<float>;
 
@@ -31,8 +28,8 @@ void ChernobylSimulator::Logic() {
 
   auto previous = clock::now();
   float accumulator = 0.0f;
-
   while (mWorkerRunning.load(std::memory_order_relaxed)) {
+
     auto now = clock::now();
     seconds frameTime = now - previous;
     previous = now;
@@ -40,59 +37,70 @@ void ChernobylSimulator::Logic() {
     accumulator += frameTime.count();
 
     while (accumulator >= dt) {
-      uint8_t current{mActiveBuffer.load(std::memory_order_acquire)};
-      uint8_t next = (current + 1) % kBufferCount;
+      auto &backParticleBuffer{
+          mParticles[(mFrontBuffer.load(std::memory_order_acquire) + 1) %
+                     kBufferCount]};
+      const auto &frontParticleBuffer{
+          mParticles[mFrontBuffer.load(std::memory_order_acquire)]};
 
-      auto &particles{mParticles[current]};
-
-      for (auto &particle : particles) {
-        particle.x += particle.momentumX;
-        particle.y += particle.momentumY;
+      for (size_t i{}; i < frontParticleBuffer.size(); ++i) {
+        const auto &frontParticle{frontParticleBuffer.at(i)};
+        backParticleBuffer[i].x =
+            frontParticle.x + frontParticle.momentumX * dt;
+        backParticleBuffer[i].y =
+            frontParticle.y + frontParticle.momentumY * dt;
       }
-      mActiveBuffer.store(next, std::memory_order_release);
+
       accumulator -= dt;
+      mFrameReady.store(true, std::memory_order_release);
+      mFrameReady.notify_all();
+      if (mWorkerRunning.load())
+        mFrameReady.wait(true);
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }
 }
 
 // ---------------------------------------------------
 
-void ChernobylSimulator::Render() {
+void ReactorSimulator::Render() {
   while (!mRenderer.ShouldClose()) {
     mRenderer.StartFrame();
+
     mRenderer.Clear(cnf::kBackgroundColor);
-
-    uint8_t current = mActiveBuffer.load(std::memory_order_acquire);
-    const auto &fuels{mFuels[current]};
-    const auto &particles{mParticles[current]};
-
-    for (const auto &fuel : fuels)
-      mRenderer.Circle(fuel.x, fuel.y, fuel.r, fuel.color);
-
+    const auto &particles{
+        mParticles[mFrontBuffer.load(std::memory_order_acquire)]};
     for (const auto &particle : particles)
       mRenderer.Circle(particle.x, particle.y, particle.r, particle.color);
 
     mRenderer.EndFrame();
+
+    if (mFrameReady.load(std::memory_order_acquire)) {
+      mFrontBuffer.store((mFrontBuffer + 1) % kBufferCount,
+                         std::memory_order_release);
+      mFrameReady.store(false, std::memory_order_release);
+      mFrameReady.notify_one();
+    }
+  }
+
+  // just in case to ensure Logc() closes;
+  if (mFrameReady.load(std::memory_order_acquire)) {
+    mFrameReady.store(false, std::memory_order_release);
+    mFrameReady.notify_one();
   }
 }
 
 // ---------------------------------------------------
 
-void ChernobylSimulator::Run() {
+void ReactorSimulator::Run() {
   // auto width{mRenderer.GetWidthOfWindow()};
   auto height{mRenderer.GetHeightOfWindow()};
   mParticles[0].push_back(Particle(10,
                                    static_cast<cnf::PosType>(height * 0.5 - 20),
-                                   20, cnf::Color{0xFFFFFFAA}, 3, 0));
+                                   20, cnf::Color{0xFFFFFFAA}, 300, 0));
 
   mParticles[1].push_back(Particle(10,
                                    static_cast<cnf::PosType>(height * 0.5 - 20),
-                                   20, cnf::Color{0xFFFFFFAA}, 3, 0));
-
-  mParticles[2].push_back(Particle(10,
-                                   static_cast<cnf::PosType>(height * 0.5 - 20),
-                                   20, cnf::Color{0xFFFFFFAA}, 3, 0));
+                                   20, cnf::Color{0xFFFFFFAA}, 300, 0));
 
   // mFuels[mInputId].push_back(Fuel(300, static_cast<cnf::PosType>(height * 0.5
   // - 20), 40,
@@ -113,7 +121,7 @@ void ChernobylSimulator::Run() {
   // 0.5 - 20), 40,
   //                       cnf::Color{0x3333FFFF}));
 
-  std::thread worker(&ChernobylSimulator::Logic, this);
+  std::thread worker(&ReactorSimulator::Logic, this);
   Render();
 
   mWorkerRunning.store(false, std::memory_order_relaxed);

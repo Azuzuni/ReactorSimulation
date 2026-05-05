@@ -5,7 +5,6 @@
 #include <atomic>
 #include <cstddef>
 #include <cstdint>
-#include <mutex>
 #include <utility>
 #include <vector>
 
@@ -13,24 +12,25 @@
  * @file
  * @brief Core class containing logic and main loop
  *
- * @class ChernobylSimulator
+ * @class ReactorSimulator
  * @brief core class including main loop with:
  * - Logic Implementation
  * - Render calls through RenderBackend API (RendererIF.hpp)
  */
-class ChernobylSimulator {
-  ChernobylSimulator() = delete;
-  ChernobylSimulator(ChernobylSimulator &&) = delete;
-  ChernobylSimulator(const ChernobylSimulator &) = delete;
-  ChernobylSimulator &operator=(ChernobylSimulator &&) = delete;
-  ChernobylSimulator &operator=(const ChernobylSimulator &) = delete;
+class ReactorSimulator {
+  ReactorSimulator() = delete;
+  ReactorSimulator(ReactorSimulator &&) = delete;
+  ReactorSimulator(const ReactorSimulator &) = delete;
+  ReactorSimulator &operator=(ReactorSimulator &&) = delete;
+  ReactorSimulator &operator=(const ReactorSimulator &) = delete;
 
-  static constexpr size_t kBufferCount{3};
+  static constexpr size_t kBufferCount{2};
+  std::atomic<uint8_t> mFrontBuffer{0};
+  std::atomic<bool> mFrameReady{false};
+  std::atomic<bool> mWorkerRunning{true};
+
   std::vector<Particle> mParticles[kBufferCount]{};
   std::vector<Fuel> mFuels[kBufferCount]{};
-  std::atomic<uint8_t> mActiveBuffer{0};
-  std::atomic<bool> mWorkerRunning{true};
-  std::mutex mAccessMut{};
 
   RenderBackend mRenderer;
 
@@ -42,14 +42,14 @@ public:
    * @brief Forwards Arguments on compiletime to the Renderer constructor
    */
   template <typename... Args>
-  constexpr ChernobylSimulator(Args &&...args)
+  constexpr ReactorSimulator(Args &&...args)
       : mRenderer{std::forward<Args>(args)...} {
     for(auto& each : mParticles)
       each.reserve(100000);
     for(auto& each : mFuels)
       each.reserve(100000);
   }
-  ~ChernobylSimulator() = default;
+  ~ReactorSimulator() = default;
 
   /**
    * @brief main loop keeping the program running

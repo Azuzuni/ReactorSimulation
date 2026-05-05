@@ -3,10 +3,10 @@
  * @brief entry point
  */
 
-#include "ChernobylSimulator.hpp"
+#include "ReactorSimulator.hpp"
 
 int main() {
-  ChernobylSimulator simulation{1720, 900, "Test"};
+  ReactorSimulator simulation{1720, 900, "Test"};
   simulation.Run();
   return 0;
 }

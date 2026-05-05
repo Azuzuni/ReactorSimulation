@@ -18,13 +18,13 @@ set(RENDERING_BACKEND "raylib" CACHE STRING "Rendering backend")
 # ------------------------------------------
 
 set(SOURCES
-  src/ChernobylSimulator.cpp
+  src/ReactorSimulator.cpp
   src/main.cpp
 )
 
 # IDE compatybility thing
 set(HEADERS
-  include/ChernobylSimulator.hpp
+  include/ReactorSimulator.hpp
   include/elements/Square.hpp
   include/elements/Particle.hpp
   include/rendering/raylib/RaylibRender.hpp
