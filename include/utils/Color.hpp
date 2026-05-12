@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-namespace cnf {
+namespace util {
 
 struct Color {
   uint8_t r;
@@ -35,4 +35,7 @@ struct Color {
   }
 };
 
-}; // namespace cnf
+constexpr Color kBackgroundColor{0x444444FF};
+constexpr Color kParticleColor{0xFF000044};
+
+}; // namespace util 

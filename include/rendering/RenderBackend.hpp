@@ -11,5 +11,5 @@
 #include "rendering/raylib/RaylibRender.hpp"
 using RenderBackend = RaylibRender;
 #else 
-#error "Defined backend is incorrect."
+#error "Undefined / Defined backend is incorrect."
 #endif 

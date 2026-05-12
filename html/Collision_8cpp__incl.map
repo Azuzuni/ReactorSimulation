@@ -1,0 +1,27 @@
+<map id="src/physics/Collision.cpp" name="src/physics/Collision.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="184,5,351,30"/>
+<area shape="rect" id="Node000002" href="$Particle_8hpp.html" title=" " alt="" coords="23,151,171,175"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,32,213,54,176,80,144,111,117,141,113,137,140,107,173,76,210,49,248,29"/>
+<area shape="rect" id="Node000003" href="$Configuration_8hpp.html" title="configuration implementation for using directives PosType, colors and other miscelanious small things" alt="" coords="21,223,173,248"/>
+<area shape="poly" id="edge12_Node000001_Node000003" title=" " alt="" coords="205,32,157,49,102,72,52,106,30,128,13,152,9,169,18,186,35,201,57,215,52,217,32,205,13,189,4,170,8,150,26,124,48,102,100,68,155,44,209,29"/>
+<area shape="rect" id="Node000006" href="$Square_8hpp.html" title=" " alt="" coords="195,151,340,175"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="237,32,210,52,196,64,186,79,183,97,192,113,208,128,229,143,224,144,205,133,187,117,178,98,181,77,192,61,207,47,241,29"/>
+<area shape="rect" id="Node000007" href="$Collision_8hpp.html" title=" " alt="" coords="195,78,340,103"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="269,28,270,63,265,62,266,33"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="363,151,423,175"/>
+<area shape="poly" id="edge15_Node000001_Node000008" title=" " alt="" coords="290,28,323,48,354,76,373,106,387,137,382,135,368,108,350,80,320,53,290,33"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="414,78,473,103"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="297,28,403,71,398,73,297,33"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="497,78,579,103"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="312,28,484,73,479,76,312,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="98,173,100,208,94,207,96,178"/>
+<area shape="rect" id="Node000004" href="$Color_8hpp.html" title=" " alt="" coords="206,223,311,248"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="124,173,220,215,215,218,123,179"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="228,296,288,321"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="260,247,260,282,256,279,256,250"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="237,178,140,219,138,215,241,174"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="268,174,264,209,260,206,264,178"/>
+<area shape="poly" id="edge9_Node000007_Node000002" title=" " alt="" coords="238,105,140,147,138,142,241,101"/>
+<area shape="poly" id="edge10_Node000007_Node000006" title=" " alt="" coords="269,101,270,136,265,134,266,106"/>
+<area shape="poly" id="edge11_Node000007_Node000008" title=" " alt="" coords="289,101,362,142,356,143,288,106"/>
+</map>

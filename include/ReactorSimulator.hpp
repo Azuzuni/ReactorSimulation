@@ -1,7 +1,7 @@
 #pragma once
 #include "elements/Particle.hpp"
 #include "elements/Square.hpp"
-#include "utils/RenderBackend.hpp"
+#include "rendering/RenderBackend.hpp"
 #include <atomic>
 #include <cstddef>
 #include <cstdint>

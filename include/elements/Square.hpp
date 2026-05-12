@@ -1,5 +1,6 @@
 #pragma once
 #include "utils/Configuration.hpp"
+#include "utils/Color.hpp"
 
 /**
  * @class Fuel
@@ -10,9 +11,9 @@
  * @param y -> y PosType coordinate
  */
 struct Fuel {
-  cnf::PosType x{};
-  cnf::PosType y{};
+  util::PosType x{};
+  util::PosType y{};
   float r{};
-  cnf::Color color{0x0000BBFF};
+  util::Color color{0x0000BBFF};
   bool triggered{false};
 };

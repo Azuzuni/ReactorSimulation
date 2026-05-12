@@ -35,17 +35,17 @@ void RaylibRender::EndFrameImpl() const noexcept { EndDrawing(); }
 
 // ---------------------------------------------------
 
-void RaylibRender::ClearImpl(const cnf::Color &color) const noexcept {
+void RaylibRender::ClearImpl(const util::Color &color) const noexcept {
   ClearBackground(Color(color.r, color.g, color.b, color.a));
 }
-void RaylibRender::CircleImpl(cnf::PosType x, cnf::PosType y, float r,
-                              const cnf::Color &color) const noexcept {
+void RaylibRender::CircleImpl(util::PosType x, util::PosType y, float r,
+                              const util::Color &color) const noexcept {
   DrawCircle(static_cast<int>(x), static_cast<int>(y), static_cast<float>(r),
              Color(color.r, color.g, color.b, color.a));
 }
-void RaylibRender::RectImpl(cnf::PosType x, cnf::PosType y, cnf::PosType width,
-                            cnf::PosType height,
-                            const cnf::Color &color) const noexcept {
+void RaylibRender::RectImpl(util::PosType x, util::PosType y, util::PosType width,
+                            util::PosType height,
+                            const util::Color &color) const noexcept {
   DrawRectangle(static_cast<int>(x), static_cast<int>(y),
                 static_cast<int>(width), static_cast<int>(height),
                 Color(color.r, color.g, color.b, color.a));

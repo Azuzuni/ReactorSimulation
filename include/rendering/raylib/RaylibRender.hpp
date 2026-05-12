@@ -1,5 +1,5 @@
 #pragma once
-#include "rendering/RendererIF.hpp"
+#include "rendering/RenderIF.hpp"
 #include "utils/Configuration.hpp"
 #include "utils/Color.hpp"
 /**
@@ -11,8 +11,8 @@
  * all implementations are called through methods
  * inside the base class
  */
-class RaylibRender : public RendererIF<RaylibRender> {
-  friend RendererIF<RaylibRender>;
+class RaylibRender : public RenderIF<RaylibRender> {
+  friend class RenderIF<RaylibRender>;
   RaylibRender() = default;
   RaylibRender(const RaylibRender &) = delete;
   RaylibRender &operator=(const RaylibRender &) = delete;
@@ -25,11 +25,11 @@ class RaylibRender : public RendererIF<RaylibRender> {
   void StartFrameImpl() const noexcept;
   void EndFrameImpl() const noexcept;
 
-  void ClearImpl(const cnf::Color &) const noexcept;
-  void CircleImpl(cnf::PosType, cnf::PosType, float,
-                  const cnf::Color &) const noexcept;
-  void RectImpl(cnf::PosType x, cnf::PosType y, cnf::PosType width,
-                cnf::PosType height, const cnf::Color &color) const noexcept;
+  void ClearImpl(const util::Color &) const noexcept;
+  void CircleImpl(util::PosType, util::PosType, float,
+                  const util::Color &) const noexcept;
+  void RectImpl(util::PosType x, util::PosType y, util::PosType width,
+                util::PosType height, const util::Color &color) const noexcept;
 
 public:
   RaylibRender(int, int, const char *);

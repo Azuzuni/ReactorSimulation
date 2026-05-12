@@ -8,8 +8,8 @@
 
 bool Collision::FuelParticle(const Fuel &fuel,
                                        const Particle &particle) {
-  cnf::PosType dX{std::abs(fuel.x - particle.x)};
-  cnf::PosType dY{std::abs(fuel.y - particle.y)};
+  util::PosType dX{std::abs(fuel.x - particle.x)};
+  util::PosType dY{std::abs(fuel.y - particle.y)};
   float radiusSum{fuel.r + particle.r};
   return static_cast<float>(dX * dX + dY * dY) <= (radiusSum * radiusSum);
 }

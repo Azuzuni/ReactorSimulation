@@ -6,28 +6,29 @@
  * @file
  * @brief CRTP interface for rendering
  *
- * @class RendererIF
+ * @class RenderIF
  * @brief CRTP base class for rendering
  * This is sort of Interface / Wrapper
  *
  * usage of child classes is supposed
  * to be used through methods calls of base class
- *
- * @tparam Derived CRTP child class with implementations
+  @tparam Impl CRTP child class with implementations
  */
-template <typename Derived> class RendererIF {
-  constexpr inline Derived &derived() { return static_cast<Derived &>(*this); }
-  constexpr const inline Derived &derived() const {
-    return static_cast<const Derived &>(*this);
+template <typename Impl> class RenderIF {
+protected:
+  RenderIF() = default;
+  RenderIF(const RenderIF &) = delete;
+  RenderIF &operator=(const RenderIF &) = delete;
+  RenderIF(RenderIF &&) = default;
+  RenderIF &operator=(RenderIF &&) = default;
+  ~RenderIF() = default;
+  constexpr inline Impl &derived() { return static_cast<Impl &>(*this); }
+  constexpr const inline Impl &derived() const {
+    return static_cast<const Impl &>(*this);
   }
 
+
 public:
-  RendererIF() = default;
-  RendererIF(const RendererIF &) = delete;
-  RendererIF &operator=(const RendererIF &) = delete;
-  RendererIF(RendererIF &&) = default;
-  RendererIF &operator=(RendererIF &&) = default;
-  ~RendererIF() = default;
 
   /**
    * @brief Wrapper for window horizontal size
@@ -75,9 +76,9 @@ public:
   /**
    * @brief Fill background color from backend implementation
    *
-   * @param color -> cnf::Color r g b a value
+   * @param color -> util::Color r g b a value
    */
-  inline void Clear(const cnf::Color &color) const noexcept {
+  inline void Clear(const util::Color &color) const noexcept {
     derived().ClearImpl(color);
   }
 
@@ -87,10 +88,10 @@ public:
    * @param x PosType x -> X position coordinate
    * @param y PosType y -> Y position coordinate
    * @param r float r -> circle radius
-   * @param color -> cnf::Color r g b a.
+   * @param color -> util::Color r g b a.
    */
-  inline void Circle(cnf::PosType x, cnf::PosType y, float r,
-                     const cnf::Color &color) const {
+  inline void Circle(util::PosType x, util::PosType y, float r,
+                     const util::Color &color) const {
     derived().CircleImpl(x, y, r, color);
   }
 
@@ -103,9 +104,9 @@ public:
    * @param height PosType -> height of the rect
    * @param color [TODO:parameter]
    */
-  inline void Rect(cnf::PosType x, cnf::PosType y, cnf::PosType width,
-                   cnf::PosType height,
-                   const cnf::Color &color) const noexcept {
+  inline void Rect(util::PosType x, util::PosType y, util::PosType width,
+                   util::PosType height,
+                   const util::Color &color) const noexcept {
     derived().RectImpl(x, y, width, height, color);
   }
 };

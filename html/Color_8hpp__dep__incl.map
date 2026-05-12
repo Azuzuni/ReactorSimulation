@@ -1,0 +1,29 @@
+<map id="include/utils/Color.hpp" name="include/utils/Color.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="478,5,629,30"/>
+<area shape="rect" id="Node000002" href="$Particle_8hpp.html" title=" " alt="" coords="176,85,369,110"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="494,36,315,87,314,82,499,33"/>
+<area shape="rect" id="Node000008" href="$Square_8hpp.html" title=" " alt="" coords="394,85,583,110"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="536,41,500,87,496,83,532,44"/>
+<area shape="rect" id="Node000009" href="$RenderIF_8hpp.html" title="CRTP interface for rendering." alt="" coords="658,78,822,117"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="596,34,698,77,692,78,595,39"/>
+<area shape="rect" id="Node000010" href="$RaylibRender_8hpp.html" title="raylib rendering CRTP implementation" alt="" coords="660,165,815,203"/>
+<area shape="poly" id="edge16_Node000001_Node000010" title=" " alt="" coords="574,39,608,76,647,115,711,164,706,164,644,119,604,80,572,44"/>
+<area shape="rect" id="Node000003" href="$ReactorSimulator_8hpp.html" title="Core class containing logic and main loop." alt="" coords="127,172,318,196"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="260,121,231,173,227,170,256,125"/>
+<area shape="rect" id="Node000004" href="$ReactorSimulator_8cpp.html" title=" " alt="" coords="5,258,174,283"/>
+<area shape="poly" id="edge7_Node000002_Node000004" title=" " alt="" coords="194,116,154,137,134,150,117,166,103,189,96,214,92,259,87,257,91,213,99,187,113,163,131,146,151,132,199,113"/>
+<area shape="rect" id="Node000006" href="$Collision_8hpp.html" title=" " alt="" coords="394,172,583,196"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="316,113,461,170,456,172,315,118"/>
+<area shape="rect" id="Node000007" href="$Collision_8cpp.html" title=" " alt="" coords="405,258,571,283"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="293,118,334,159,383,201,427,232,469,258,464,257,425,236,380,205,331,163,292,123"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="195,205,109,260,106,256,189,204"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="entry point" alt="" coords="197,258,294,283"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="232,209,245,259,240,257,228,213"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="490,210,490,260,486,257,486,214"/>
+<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="435,116,260,174,259,169,440,114"/>
+<area shape="poly" id="edge11_Node000008_Node000006" title=" " alt="" coords="490,123,490,173,486,170,486,127"/>
+<area shape="poly" id="edge12_Node000008_Node000007" title=" " alt="" coords="538,114,571,134,586,147,597,163,604,184,597,205,583,224,564,239,525,260,523,255,561,235,579,220,592,202,598,184,592,166,582,151,568,138,537,119"/>
+<area shape="poly" id="edge14_Node000009_Node000010" title=" " alt="" coords="741,130,740,166,736,162,737,134"/>
+<area shape="rect" id="Node000011" href="$RaylibRenderer_8cpp.html" title=" " alt="" coords="668,251,807,290"/>
+<area shape="poly" id="edge15_Node000010_Node000011" title=" " alt="" coords="739,217,740,252,735,249,736,221"/>
+</map>

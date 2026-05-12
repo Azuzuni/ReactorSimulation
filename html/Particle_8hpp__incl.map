@@ -1,0 +1,9 @@
+<map id="include/elements/Particle.hpp" name="include/elements/Particle.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="60,5,254,30"/>
+<area shape="rect" id="Node000002" href="$Configuration_8hpp.html" title="configuration implementation for using directives PosType, colors and other miscelanious small things" alt="" coords="5,78,157,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,32,106,69,103,65,146,29"/>
+<area shape="rect" id="Node000003" href="$Color_8hpp.html" title=" " alt="" coords="180,78,286,103"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,28,212,67,207,68,169,33"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="203,151,263,175"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="235,101,235,137,231,134,231,105"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="include/rendering/raylib/RaylibRender.hpp" name="include/rendering/raylib/RaylibRender.hpp">
+<area shape="rect" id="Node000001" title="raylib rendering CRTP implementation" alt="" coords="100,5,254,44"/>
+<area shape="rect" id="Node000002" href="$RenderIF_8hpp.html" title="CRTP interface for rendering." alt="" coords="99,92,255,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,42,180,77,174,75,176,47"/>
+<area shape="rect" id="Node000003" href="$Configuration_8hpp.html" title="configuration implementation for using directives PosType, colors and other miscelanious small things" alt="" coords="5,165,157,189"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="137,46,112,67,90,93,81,121,80,150,75,149,76,120,85,91,109,63,140,42"/>
+<area shape="rect" id="Node000004" href="$Color_8hpp.html" title=" " alt="" coords="219,165,324,189"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="216,42,246,63,269,91,278,120,278,150,273,148,272,121,264,93,242,67,216,47"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="159,119,110,158,107,153,163,115"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="193,115,247,155,242,156,192,120"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="242,237,302,262"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="274,188,274,223,269,220,270,192"/>
+</map>

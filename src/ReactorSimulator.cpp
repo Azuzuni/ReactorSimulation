@@ -7,6 +7,7 @@
 #include <random>
 #include <thread>
 
+
 // ===================================================
 // 1. Constructor / Destructor
 // ===================================================
@@ -66,7 +67,7 @@ void ReactorSimulator::Render() {
   while (!mRenderer.ShouldClose()) {
     mRenderer.StartFrame();
 
-    mRenderer.Clear(cnf::kBackgroundColor);
+    mRenderer.Clear(util::kBackgroundColor);
     const auto &particles{
         mParticles[mFrontBuffer.load(std::memory_order_acquire)]};
     for (const auto &particle : particles)
@@ -95,31 +96,32 @@ void ReactorSimulator::Run() {
   // auto width{mRenderer.GetWidthOfWindow()};
   auto height{mRenderer.GetHeightOfWindow()};
   mParticles[0].push_back(Particle(10,
-                                   static_cast<cnf::PosType>(height * 0.5 - 20),
-                                   20, cnf::Color{0xFFFFFFAA}, 300, 0));
+                                   static_cast<util::PosType>(height * 0.5 - 20),
+                                   20, util::Color{0xFFFFFFAA}, 600, 0));
 
-  mParticles[1].push_back(Particle(10,
-                                   static_cast<cnf::PosType>(height * 0.5 - 20),
-                                   20, cnf::Color{0xFFFFFFAA}, 300, 0));
 
-  // mFuels[mInputId].push_back(Fuel(300, static_cast<cnf::PosType>(height * 0.5
+mParticles[1].push_back(Particle(10,
+                                   static_cast<util::PosType>(height * 0.5 - 20),
+                                   20, util::Color{0xFFFFFFAA}, 600, 0));
+
+  // mFuels[mInputId].push_back(Fuel(300, static_cast<util::PosType>(height * 0.5
   // - 20), 40,
-  //                       cnf::Color{0x3333FFFF}));
-  // mFuels[mInputId].push_back(Fuel(600, static_cast<cnf::PosType>(height * 0.5
+  //                       util::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(600, static_cast<util::PosType>(height * 0.5
   // - 20), 40,
-  //                       cnf::Color{0x3333FFFF}));
-  // mFuels[mInputId].push_back(Fuel(900, static_cast<cnf::PosType>(height * 0.5
+  //                       util::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(900, static_cast<util::PosType>(height * 0.5
   // - 20), 40,
-  //                       cnf::Color{0x3333FFFF}));
-  // mFuels[mInputId].push_back(Fuel(1200, static_cast<cnf::PosType>(height *
+  //                       util::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(1200, static_cast<util::PosType>(height *
   // 0.5 - 20), 40,
-  //                       cnf::Color{0x3333FFFF}));
-  // mFuels[mInputId].push_back(Fuel(1500, static_cast<cnf::PosType>(height *
+  //                       util::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(1500, static_cast<util::PosType>(height *
   // 0.5 - 20), 40,
-  //                       cnf::Color{0x3333FFFF}));
-  // mFuels[mInputId].push_back(Fuel(1800, static_cast<cnf::PosType>(height *
+  //                       util::Color{0x3333FFFF}));
+  // mFuels[mInputId].push_back(Fuel(1800, static_cast<util::PosType>(height *
   // 0.5 - 20), 40,
-  //                       cnf::Color{0x3333FFFF}));
+  //                       util::Color{0x3333FFFF}));
 
   std::thread worker(&ReactorSimulator::Logic, this);
   Render();

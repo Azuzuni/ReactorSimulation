@@ -6,13 +6,15 @@
  */
 
 #pragma once
-#include "Color.hpp"
-
-namespace cnf {
+#include <cstdint>
+namespace util {
 
 using PosType = float;
+using Entity = uint32_t;
 
-constexpr Color kBackgroundColor{0x444444FF};
-constexpr Color kParticleColor{0xFF000044};
+constexpr float kParticleRadius{20};
+constexpr float kParticleStartingMomentumX{300};
+constexpr float kParticleStartingMomentumY{300};
 
-}; // namespace cnf
+
+}; // namespace util 

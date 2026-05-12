@@ -1,0 +1,5 @@
+<map id="Fuel" name="Fuel">
+<area shape="rect" id="Node000001" title="struct containing data for fuel needed for simulation" alt="" coords="16,351,90,473"/>
+<area shape="rect" id="Node000002" href="$structutil_1_1Color.html" title=" " alt="" coords="5,5,100,281"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="54,279,55,335,50,334,52,284"/>
+</map>

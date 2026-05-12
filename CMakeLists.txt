@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(RENDERING_BACKEND "raylib" CACHE STRING "Rendering backend")
-
+set(ECS_IMPL "entt" CACHE STRING "ECS implementation")
 # ------------------------------------------
 # 2. Files
 # ------------------------------------------
@@ -27,11 +27,11 @@ set(HEADERS
   include/ReactorSimulator.hpp
   include/elements/Square.hpp
   include/elements/Particle.hpp
+  include/rendering/RenderBackend.hpp
+  include/rendering/RenderIF.hpp
   include/rendering/raylib/RaylibRender.hpp
-  include/rendering/RendererIF.hpp
   include/utils/Color.hpp
   include/utils/Configuration.hpp
-  include/utils/RenderBackend.hpp
 )
 
 
@@ -40,6 +40,7 @@ set(HEADERS
 # 3. Libraries
 # ------------------------------------------
 add_subdirectory(src/rendering/${RENDERING_BACKEND})
+add_subdirectory(src/ecs/${ECS_IMPL})
 add_subdirectory(src/physics/)
 
 
@@ -59,6 +60,7 @@ add_executable(
 
 target_include_directories( ${APP_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include )
 target_link_libraries( ${APP_NAME} ${RENDERING_BACKEND}_impl )
+target_link_libraries( ${APP_NAME} ${ECS_IMPL}_impl )
 target_link_libraries( ${APP_NAME} physics)
 
 
@@ -67,3 +69,4 @@ target_link_libraries( ${APP_NAME} physics)
 # ------------------------------------------
 
 target_compile_definitions(${APP_NAME} PRIVATE kRenderingBackend_${RENDERING_BACKEND})
+target_compile_definitions(${APP_NAME} PRIVATE kECSImplementation_${ECS_IMPL})

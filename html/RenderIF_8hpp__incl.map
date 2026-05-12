@@ -1,0 +1,9 @@
+<map id="include/rendering/RenderIF.hpp" name="include/rendering/RenderIF.hpp">
+<area shape="rect" id="Node000001" title="CRTP interface for rendering." alt="" coords="75,5,239,44"/>
+<area shape="rect" id="Node000002" href="$Configuration_8hpp.html" title="configuration implementation for using directives PosType, colors and other miscelanious small things" alt="" coords="5,92,157,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,47,105,82,101,79,140,43"/>
+<area shape="rect" id="Node000003" href="$Color_8hpp.html" title=" " alt="" coords="180,92,286,117"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="176,42,214,80,208,81,175,47"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="203,165,263,189"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="235,115,235,151,231,148,231,119"/>
+</map>
