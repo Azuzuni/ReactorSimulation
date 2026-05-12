@@ -1,5 +1,0 @@
-<map id="RaylibRender" name="RaylibRender">
-<area shape="rect" id="Node000001" title="CRTP implementation of raylib backend all implementations are called through methods inside the base ..." alt="" coords="29,329,146,451"/>
-<area shape="rect" id="Node000002" href="$classRenderIF.html" title=" " alt="" coords="5,5,170,281"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,294,90,330,85,329,87,299"/>
-</map>
