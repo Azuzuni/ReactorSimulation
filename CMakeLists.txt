@@ -11,62 +11,53 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(RENDERING_BACKEND "raylib" CACHE STRING "Rendering backend")
-set(ECS_IMPL "entt" CACHE STRING "ECS implementation")
-# ------------------------------------------
-# 2. Files
-# ------------------------------------------
 
-set(SOURCES
-  src/ReactorSimulator.cpp
-  src/main.cpp
+add_library(project_settings INTERFACE)
+set_target_properties(project_settings PROPERTIES
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
 )
 
-# IDE compatybility thing
-set(HEADERS
-  include/ReactorSimulator.hpp
-  include/elements/Square.hpp
-  include/elements/Particle.hpp
-  include/rendering/RenderBackend.hpp
-  include/rendering/RenderIF.hpp
-  include/rendering/raylib/RaylibRender.hpp
-  include/utils/Color.hpp
-  include/utils/Configuration.hpp
-)
-
+set(rendering "raylib" CACHE STRING "Rendering backend")
+set(ecs "entt" CACHE STRING "ECS implementation")
 
 
 # ------------------------------------------
-# 3. Libraries
+# 2. Libraries
 # ------------------------------------------
-add_subdirectory(src/rendering/${RENDERING_BACKEND})
-add_subdirectory(src/ecs/${ECS_IMPL})
-add_subdirectory(src/physics/)
-
+add_subdirectory(component)
+add_subdirectory(core)
+add_subdirectory(ecs)
+add_subdirectory(physics)
+add_subdirectory(rendering)
+add_subdirectory(utils)
 
 # ------------------------------------------
-# 4. Exec
+# 3. Exec
 # ------------------------------------------
 
-add_executable(
-  ${APP_NAME} 
-  ${SOURCES}
-  ${HEADERS}
-)
+if(WIN32)
+  add_executable(${APP_NAME} WIN32 app/winmain.cpp)
+else()
+  add_executable(${APP_NAME} app/main.cpp)
+endif()
+
+# ------------------------------------------
+# 4. Implementation selection
+# ------------------------------------------
+
+target_compile_definitions(project_settings INTERFACE RENDERING_${rendering})
+target_compile_definitions(project_settings INTERFACE ECS_${ecs})
 
 # ------------------------------------------
 # 5. Linking
 # ------------------------------------------
 
-target_include_directories( ${APP_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include )
-target_link_libraries( ${APP_NAME} ${RENDERING_BACKEND}_impl )
-target_link_libraries( ${APP_NAME} ${ECS_IMPL}_impl )
-target_link_libraries( ${APP_NAME} physics)
-
-
-# ------------------------------------------
-# 6. Implementation selection
-# ------------------------------------------
-
-target_compile_definitions(${APP_NAME} PRIVATE kRenderingBackend_${RENDERING_BACKEND})
-target_compile_definitions(${APP_NAME} PRIVATE kECSImplementation_${ECS_IMPL})
+target_link_libraries( ${APP_NAME} PRIVATE project_settings)
+target_link_libraries( ${APP_NAME} PRIVATE core)
+# target_link_libraries( ${APP_NAME} PRIVATE component)
+# target_link_libraries( ${APP_NAME} PRIVATE physics)
+# target_link_libraries( ${APP_NAME} PRIVATE ${rendering})
+# target_link_libraries( ${APP_NAME} PRIVATE ${ecs})
+# target_link_libraries( ${APP_NAME} PRIVATE utils)
