@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utils/Configuration.h"
+#include "utils/Configuration.hpp"
 #include <utility>
 namespace ecs {
 

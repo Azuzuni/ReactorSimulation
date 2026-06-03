@@ -1,5 +1,5 @@
 #pragma once
-#include "utils/Configuration.h"
+#include "utils/Configuration.hpp"
 
 namespace component {
 

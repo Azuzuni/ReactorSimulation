@@ -1,6 +1,6 @@
 #pragma once
-#include "Color.h"
-#include "utils/Configuration.h"
+#include "core/Color.h"
+#include "utils/Configuration.hpp"
 #include <cstdint>
 namespace component {
 namespace shape {

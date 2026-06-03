@@ -2,7 +2,7 @@
 
 #include "ecs/entt/EnTTEcs.hpp"
 #include "entt/entity/fwd.hpp"
-#include "utils/Configuration.h"
+#include "utils/Configuration.hpp"
 #include <utility>
 namespace ecs {
 

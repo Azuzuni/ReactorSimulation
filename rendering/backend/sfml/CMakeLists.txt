@@ -1,47 +1,31 @@
+
 # ------------------------------------------
 # 1. Variables
 # ------------------------------------------
 
-set(MODULE_NAME entt_impl)
-set(ENTT_VERSION v3.16.0)
+set(MODULE_NAME sfml_impl)
 
 # ------------------------------------------
 # 2. Files
 # ------------------------------------------
 
-set(HEADERS
-  EnTTEcs.hpp
-  EnTTEcs.tpp
+set(SOURCES
+  SfmlRenderer.cpp
 )
 
-set(SOURCES
-  EnTTimpl.cpp
-)
 
 # ------------------------------------------
 # 3. Library
 # ------------------------------------------
 
-add_library(${MODULE_NAME} STATIC ${SOURCES} ${HEADERS})
+add_library(${MODULE_NAME} STATIC ${SOURCES})
 
 # ------------------------------------------
 # 4. Dependency Find / Fetch
 # ------------------------------------------
 
-find_package(EnTT CONFIG QUIET)
-
-if (NOT EnTT_FOUND)
-  include(FetchContent)
-
-  FetchContent_Declare(
-    entt
-    DOWNLOAD_EXTRACT_TIMESTAMP OFF
-    GIT_REPOSITORY https://github.com/skypjack/entt.git
-    GIT_TAG ${ENTT_VERSION}
-  )
-
-  FetchContent_MakeAvailable(entt)
-endif()
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(SFML REQUIRED sfml-all)
 
 # ------------------------------------------
 # 5. Linking
@@ -49,10 +33,15 @@ endif()
 
 target_include_directories(
   ${MODULE_NAME}
-  PUBLIC . 
+  PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
-target_link_libraries(${MODULE_NAME} PUBLIC EnTT::EnTT)
+# target_link_libraries(${MODULE_NAME} PUBLIC sfml::sfml)
 target_link_libraries(${MODULE_NAME} PUBLIC project_settings)
-target_link_libraries(${MODULE_NAME} PUBLIC rendering)
-target_link_libraries(${MODULE_NAME} PUBLIC utils)
+target_link_libraries(${MODULE_NAME} PUBLIC ${ecs}_impl )
+target_link_libraries(${MODULE_NAME} PUBLIC core)
+target_link_libraries(${MODULE_NAME} PUBLIC component)
+
+target_include_directories(${MODULE_NAME} PUBLIC ${SFML_INCLUDE_DIRS})
+target_link_libraries(${MODULE_NAME} PUBLIC ${SFML_LIBRARIES})
+

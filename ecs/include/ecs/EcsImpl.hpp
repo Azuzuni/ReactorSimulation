@@ -6,7 +6,7 @@
 #pragma once
 
 #if defined(ECS_entt)
-#include "EnTTEcs.hpp"
+#include "ecs/entt/EnTTEcs.hpp"
 namespace ecs {
 using Impl = ecs::EnTTEcs;
 };

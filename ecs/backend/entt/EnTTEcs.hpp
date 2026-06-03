@@ -1,7 +1,7 @@
 #pragma once
 #include "ecs/EcsIF.hpp"
 #include "entt/entt.hpp"
-#include "utils/Configuration.h"
+#include "utils/Configuration.hpp"
 
 namespace ecs {
 

@@ -9,17 +9,17 @@ set(MODULE_NAME component)
 # ------------------------------------------
 
 set(HEADERS 
-  shape/Circle.h
-  shape/Rectangle.h
-  factory/Factory.h
-  Lifetime.hpp
-  Position.h
-  Types.hpp
-  Velocity.h
+  include/component/shape/Circle.h
+  include/component/shape/Rectangle.h
+  include/component/factory/Factory.h
+  include/component/Lifetime.hpp
+  include/component/Position.h
+  include/component/Types.hpp
+  include/component/Velocity.h
 )
 
 set(SOURCES
-  factory/Factory.cpp
+  src/factory/Factory.cpp
 )
 
 
@@ -33,11 +33,9 @@ add_library(${MODULE_NAME} STATIC ${SOURCES} ${HEADERS})
 # 4. Linking
 # ------------------------------------------
 
-target_include_directories( ${MODULE_NAME} PUBLIC factory )
-target_include_directories( ${MODULE_NAME} PUBLIC shape )
-
+target_include_directories( ${MODULE_NAME} PUBLIC include )
 
 target_link_libraries(${MODULE_NAME} PUBLIC project_settings)
 target_link_libraries(${MODULE_NAME} PUBLIC core)
 target_link_libraries(${MODULE_NAME} PUBLIC utils)
-target_link_libraries(${MODULE_NAME} PUBLIC ${ecs} )
+target_link_libraries(${MODULE_NAME} PUBLIC ${ecs}_impl )

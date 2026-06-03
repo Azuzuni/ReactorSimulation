@@ -1,6 +1,6 @@
 #pragma once
 #include "ecs/EcsImpl.h"
-#include "rendering/RenderImpl.h"
+#include "rendering/RenderImpl.hpp"
 #include "scene/SceneIF.h"
 #include <atomic>
 #include <cstddef>

@@ -9,7 +9,7 @@ set(MODULE_NAME utils)
 # ------------------------------------------
 
 set(HEADERS
-  Configuration.h
+  Configuration.hpp
 )
 
 set(SOURCES

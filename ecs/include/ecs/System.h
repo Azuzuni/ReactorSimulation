@@ -1,8 +1,8 @@
 #pragma once
 
-#include "component/Factory.h"
+#include "component/factory/Factory.h"
 #include "ecs/EcsImpl.h"
-#include "utils/Configuration.h"
+#include "utils/Configuration.hpp"
 #include <vector>
 namespace ecs {
 

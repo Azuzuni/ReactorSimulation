@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Position.h"
-#include "Velocity.h"
-#include "shape/Circle.h"
+#include "component/Position.h"
+#include "component/Velocity.h"
+#include "component/shape/Circle.h"
 #include "ecs/EcsImpl.h"
 namespace component {
 

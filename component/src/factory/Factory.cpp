@@ -1,12 +1,12 @@
-#include "Factory.h"
-#include "Color.h"
+#include "core/Color.h"
+#include "component/factory/Factory.h"
 #include "component/Lifetime.hpp"
 #include "component/Position.h"
 #include "component/Velocity.h"
 #include "component/shape/Circle.h"
 #include "component/shape/Rectangle.h"
-#include "component/types.hpp"
-#include "utils/Configuration.h"
+#include "component/Types.hpp"
+#include "utils/Configuration.hpp"
 using namespace component;
 
 void Factory::InsertButton(ecs::Impl &buffer) {

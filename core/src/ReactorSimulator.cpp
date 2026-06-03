@@ -1,4 +1,4 @@
-#include "ReactorSimulator.h"
+#include "core/ReactorSimulator.h"
 #include "ecs/System.h"
 #include "raylib.h"
 #include "scene/MainMenu.h"

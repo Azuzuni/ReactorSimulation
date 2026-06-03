@@ -10,7 +10,7 @@ add_subdirectory(backend/${ecs})
 
 set(HEADERS 
   include/ecs/EcsIF.hpp
-  include/ecs/EcsImpl.h
+  include/ecs/EcsImpl.hpp
   include/ecs/System.h
 )
 set(SOURCES
