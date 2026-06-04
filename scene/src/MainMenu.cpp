@@ -1,10 +1,10 @@
 #include "scene/MainMenu.h"
-#include "Color.h"
-#include "component/Factory.h"
 #include "component/Position.h"
+#include "component/factory/Factory.h"
 #include "component/shape/Rectangle.h"
-#include "ecs/EcsImpl.h"
-#include "utils/Configuration.h"
+#include "core/Color.h"
+#include "ecs/EcsImpl.hpp"
+#include "utils/Configuration.hpp"
 using namespace scene;
 
 void MainMenu::LoadScene(ecs::Impl &ecsImpl) {
@@ -21,9 +21,9 @@ void MainMenu::LoadScene(ecs::Impl &ecsImpl) {
   ecsImpl.Add<component::shape::Rectangle>(
       entity, component::shape::Rectangle{200, 100, color::BUTTON});
   component::Factory::InsertParticle(ecsImpl, {POS_X, POS_Y},
-                               {VELOCITY_X, VELOCITY_Y}, {RADIUS, COLOR});
+                                     {VELOCITY_X, VELOCITY_Y}, {RADIUS, COLOR});
   component::Factory::InsertParticle(ecsImpl, {POS_X, POS_Y + 30},
-                               {VELOCITY_X, VELOCITY_Y}, {RADIUS, COLOR});
+                                     {VELOCITY_X, VELOCITY_Y}, {RADIUS, COLOR});
   component::Factory::InsertParticle(ecsImpl, {POS_X, POS_Y + 60},
-                               {VELOCITY_X, VELOCITY_Y}, {RADIUS, COLOR});
+                                     {VELOCITY_X, VELOCITY_Y}, {RADIUS, COLOR});
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SceneIF.h"
+#include "scene/SceneIF.h"
 namespace scene {
 
 class MainMenu : public SceneIF {
@@ -12,7 +12,7 @@ public:
   MainMenu &operator=(const MainMenu &) = default;
   virtual ~MainMenu() = default;
 
-  void LoadScene(ecs::Impl&) override;
+  void LoadScene(ecs::Impl &) override;
 };
 
 }; // namespace scene

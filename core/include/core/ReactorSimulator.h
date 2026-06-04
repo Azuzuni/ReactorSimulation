@@ -1,6 +1,6 @@
 #pragma once
-#include "ecs/EcsImpl.h"
-#include "rendering/RenderImpl.hpp"
+#include "ecs/EcsImpl.hpp"
+#include "rendering/RenderImpl.h"
 #include "scene/SceneIF.h"
 #include <atomic>
 #include <cstddef>
@@ -33,7 +33,6 @@ class ReactorSimulator {
    */
   std::unordered_map<int, std::unique_ptr<scene::SceneIF>> mScenes{};
 
-
   //! @param mEcs -> buffers containing data for logic and rendering
   ecs::Impl mEcs{};
 
@@ -42,7 +41,7 @@ class ReactorSimulator {
 
   void Logic();
   void Render();
-  
+
   /**
    * @brief main loop keeping the program running
    */
@@ -52,9 +51,6 @@ public:
   /**
    * @brief Forwards Arguments on compiletime to the Renderer constructor
    */
-  ReactorSimulator(int, int, const char*);
+  ReactorSimulator(int, int, const char *);
   ~ReactorSimulator() = default;
-
-
-
 };

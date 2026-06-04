@@ -5,14 +5,12 @@
 
 #pragma once
 
-
-
-#if defined (RENDERING_raylib)
-#include "rendering/raylib/RaylibRender.h"
+#if defined(RENDERING_raylib)
+#include "rendering/raylib/Implementation.hpp"
 using RenderBackend = RaylibRender;
-#elif defined (RENDERING_sfml)
+#elif defined(RENDERING_sfml)
 #include "rendering/sfml/SfmlRender.h"
 using RenderBackend = SfmlRender;
 #else
 #error "Undefined / Defined backend is incorrect."
-#endif 
+#endif

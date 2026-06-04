@@ -1,10 +1,10 @@
 #pragma once
 
-#include "ecs/EcsImpl.h"
+#include "ecs/EcsImpl.hpp"
 namespace scene {
 
 enum SceneEnum {
-  MAIN_MENU  = 0,
+  MAIN_MENU = 0,
   SIMULATION = 1,
 };
 
@@ -17,7 +17,7 @@ public:
   SceneIF &operator=(const SceneIF &) = default;
   virtual ~SceneIF() = default;
 
-  virtual void LoadScene(ecs::Impl&) = 0;
+  virtual void LoadScene(ecs::Impl &) = 0;
 };
 
-};
+}; // namespace scene

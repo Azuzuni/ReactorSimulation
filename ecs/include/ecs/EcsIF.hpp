@@ -36,7 +36,7 @@ public:
     return derived().template GetImpl<Component>(
         std::forward<util::Entity>(entity));
   }
-  
+
   template <typename... Components>
   [[nodiscard]] auto Get(util::Entity entity) noexcept {
     return derived().template GetImpl<Components...>(

@@ -1,11 +1,11 @@
 #include "ecs/System.h"
-#include "component/Factory.h"
 #include "component/Lifetime.hpp"
 #include "component/Position.h"
 #include "component/Velocity.h"
+#include "component/factory/Factory.h"
 #include "component/shape/Circle.h"
-#include "ecs/EcsImpl.h"
-#include "utils/Configuration.h"
+#include "ecs/EcsImpl.hpp"
+#include "utils/Configuration.hpp"
 #include <chrono>
 #include <cstdint>
 #include <random>

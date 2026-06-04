@@ -7,4 +7,4 @@ struct Lifetime {
   Lifetime(float lifeTime) : lifeTime(lifeTime) {}
 };
 
-};
+}; // namespace component

@@ -1,7 +1,7 @@
 #include "scene/Simulation.h"
-#include "component/Factory.h"
-#include "ecs/EcsImpl.h"
-#include "utils/Configuration.h"
+#include "component/factory/Factory.h"
+#include "ecs/EcsImpl.hpp"
+#include "utils/Configuration.hpp"
 #include <chrono>
 #include <cstdint>
 #include <random>

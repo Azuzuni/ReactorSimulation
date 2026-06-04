@@ -5,24 +5,21 @@
 set(MODULE_NAME utils)
 
 # ------------------------------------------
-# 2. Files
+# 1. Files
 # ------------------------------------------
 
-set(HEADERS
-  Configuration.hpp
-)
+set(HEADERS include/utils/Configuration.hpp)
 
-set(SOURCES
-)
+set(SOURCES Configuration.cpp)
 
 # ------------------------------------------
-# 3. Library
+# 1. Library
 # ------------------------------------------
 
-add_library(${MODULE_NAME} INTERFACE ${SOURCES} ${HEADERS})
+add_library(${MODULE_NAME} STATIC ${SOURCES} ${HEADERS})
 
 # ------------------------------------------
-# 4. Linking
+# 1. Linking
 # ------------------------------------------
-
+target_include_directories(${MODULE_NAME} PUBLIC include)
 target_link_libraries(${MODULE_NAME} INTERFACE project_settings)

@@ -1,7 +1,7 @@
 #pragma once
-#include "Color.h"
-#include "ecs/EcsImpl.h"
-#include "utils/Configuration.h"
+#include "core/Color.h"
+#include "ecs/EcsImpl.hpp"
+#include "utils/Configuration.hpp"
 #include <utility>
 
 /**
@@ -29,9 +29,7 @@ protected:
     return static_cast<const Impl &>(*this);
   }
 
-
 public:
-
   /**
    * @brief Wrapper for window horizontal size
    * @return int
@@ -57,8 +55,7 @@ public:
     return derived().ShouldCloseImpl();
   }
 
-
-  inline void Update(const ecs::Impl& buffer) const noexcept {
+  inline void Update(const ecs::Impl &buffer) const noexcept {
     derived().UpdateImpl(buffer);
   }
 };

@@ -3,13 +3,10 @@
 #include "component/Position.h"
 #include "component/Velocity.h"
 #include "component/shape/Circle.h"
-#include "ecs/EcsImpl.h"
+#include "ecs/EcsImpl.hpp"
 namespace component {
 
-enum Type {
-  BUTTON,
-  PARTICLE
-};
+enum Type { BUTTON, PARTICLE };
 
 class Factory {
   Factory() = delete;

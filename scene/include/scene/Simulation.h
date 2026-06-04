@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "SceneIF.h"
+#include "scene/SceneIF.h"
 namespace scene {
 
 class Simulation : public SceneIF {
@@ -13,7 +13,7 @@ public:
   Simulation &operator=(const Simulation &) = default;
   virtual ~Simulation() = default;
 
-  void LoadScene(ecs::Impl&) override;
+  void LoadScene(ecs::Impl &) override;
 };
 
 }; // namespace scene

@@ -1,11 +1,10 @@
-#include "Color.h"
+#include "rendering/raylib/Implementation.hpp"
 #include "component/Position.h"
 #include "component/shape/Circle.h"
-#include "component/shape/Rectangle.h"
-#include "ecs/EcsImpl.h"
+#include "core/Color.h"
+#include "ecs/EcsImpl.hpp"
 #include "raylib.h"
-#include "rendering/raylib/RaylibRender.h"
-#include "utils/Configuration.h"
+#include "utils/Configuration.hpp"
 #include <cstdint>
 
 // ===================================================
@@ -53,9 +52,9 @@ RaylibRender::ParticleUpdate(const ecs::Impl &buffer) const noexcept {
   //     });
 
   buffer.Each<component::Position, component::shape::Circle>(
-      [&](const util::Entity, const component::Position &position, const component::shape::Circle &circle) {
-        ::DrawCircle(static_cast<int>(position.x),
-                     static_cast<int>(position.y),
+      [&](const util::Entity, const component::Position &position,
+          const component::shape::Circle &circle) {
+        ::DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y),
                      circle.radius, ToColor(circle.color));
       });
 }

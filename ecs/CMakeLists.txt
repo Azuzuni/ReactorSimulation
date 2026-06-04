@@ -3,31 +3,28 @@
 # ------------------------------------------
 
 set(MODULE_NAME ecs)
-add_subdirectory(backend/${ecs})
 # ------------------------------------------
-# 2. Files
+# 1. Files
 # ------------------------------------------
 
-set(HEADERS 
-  include/ecs/EcsIF.hpp
-  include/ecs/EcsImpl.hpp
-  include/ecs/System.h
-)
-set(SOURCES
-  src/System.cpp
-)
+set(HEADERS include/ecs/EcsIF.hpp include/ecs/EcsImpl.hpp include/ecs/System.h)
+set(SOURCES src/System.cpp)
 
+add_subdirectory(backend/ecs/${ecs})
 # ------------------------------------------
-# 3. Library
+# 1. Library
 # ------------------------------------------
 
 add_library(${MODULE_NAME} STATIC ${SOURCES} ${HEADERS})
 
 # ------------------------------------------
-# 4. Linking
+# 1. Linking
 # ------------------------------------------
-target_include_directories( ${MODULE_NAME} PRIVATE backend )
-target_include_directories( ${MODULE_NAME} PUBLIC include )
+target_include_directories(${MODULE_NAME} PUBLIC backend)
+target_include_directories(${MODULE_NAME} PUBLIC include)
 
 target_link_libraries(${MODULE_NAME} PUBLIC project_settings)
-target_link_libraries(${MODULE_NAME} PUBLIC ${ecs}_impl )
+target_link_libraries(${MODULE_NAME} PUBLIC utils)
+target_link_libraries(${MODULE_NAME} PUBLIC component)
+target_link_libraries(${MODULE_NAME} PUBLIC ${ecs}_impl)
+target_sources(${MODULE_NAME} PUBLIC backend/ecs/${ecs}/Implementation.hpp)
