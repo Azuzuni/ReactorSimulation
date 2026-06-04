@@ -1,5 +1,5 @@
 #pragma once
-#include "core/Color.h"
+#include "core/Color.hpp"
 #include "utils/Configuration.hpp"
 #include <cstdint>
 namespace component {
@@ -14,7 +14,7 @@ struct Rectangle {
   Rectangle &operator=(Rectangle &&) = default;
   Rectangle &operator=(const Rectangle &) = default;
   ~Rectangle() = default;
-  
+
   util::PosType width{};
   util::PosType height{};
   color::Color color{color::BUTTON};

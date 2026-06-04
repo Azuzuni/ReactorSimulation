@@ -1,5 +1,5 @@
-#include "scene/Simulation.h"
-#include "component/factory/Factory.h"
+#include "scene/Simulation.hpp"
+#include "component/factory/Factory.hpp"
 #include "ecs/EcsImpl.hpp"
 #include "utils/Configuration.hpp"
 #include <chrono>

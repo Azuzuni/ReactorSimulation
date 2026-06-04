@@ -8,15 +8,13 @@ set(MODULE_NAME scene)
 # 1. Files
 # ------------------------------------------
 
-set(HEADERS include/scene/MainMenu.h include/scene/SceneIF.h
-            include/scene/Simulation.h)
 set(SOURCES src/MainMenu.cpp src/Simulation.cpp)
 
 # ------------------------------------------
 # 1. Library
 # ------------------------------------------
 
-add_library(${MODULE_NAME} STATIC ${SOURCES} ${HEADERS})
+add_library(${MODULE_NAME} STATIC ${SOURCES})
 
 # ------------------------------------------
 # 1. Linking

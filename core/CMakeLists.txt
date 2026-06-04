@@ -8,14 +8,13 @@ set(MODULE_NAME core)
 # 1. Files
 # ------------------------------------------
 
-set(HEADERS include/core/Color.h include/core/ReactorSimulator.h)
 set(SOURCES src/ReactorSimulator.cpp)
 
 # ------------------------------------------
 # 1. Library
 # ------------------------------------------
 
-add_library(${MODULE_NAME} STATIC ${SOURCES} ${HEADERS})
+add_library(${MODULE_NAME} STATIC ${SOURCES})
 
 # ------------------------------------------
 # 1. Linking

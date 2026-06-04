@@ -12,10 +12,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(rendering
+set(RENDERING
     "raylib"
     CACHE STRING "Rendering backend")
-set(ecs
+set(ECS
     "entt"
     CACHE STRING "ECS implementation")
 
@@ -25,14 +25,16 @@ set_target_properties(
   PROPERTIES CXX_STANDARD 20
              CXX_STANDARD_REQUIRED YES
              CXX_EXTENSIONS NO)
-target_compile_definitions(project_settings INTERFACE RENDERING_${rendering})
-target_compile_definitions(project_settings INTERFACE ECS_${ecs})
+target_compile_definitions(project_settings INTERFACE RENDERING_${RENDERING})
+target_compile_definitions(project_settings INTERFACE ECS_${ECS})
 
-message(STATUS "rendering='${rendering}'")
-message(STATUS "ecs='${ecs}'")
+message(STATUS "rendering='${RENDERING}'")
+message(STATUS "ecs='${ECS}'")
+
 # ------------------------------------------
 # 1. Libraries
 # ------------------------------------------
+
 add_subdirectory(rendering)
 add_subdirectory(ecs)
 add_subdirectory(utils)
@@ -45,15 +47,7 @@ add_subdirectory(physics)
 # 1. Exec
 # ------------------------------------------
 
-if(WIN32)
-    add_executable(${APP_NAME} WIN32 app/winmain.cpp)
-else()
-    add_executable(${APP_NAME} app/main.cpp)
-endif()
-
-# ------------------------------------------
-# 1. Implementation selection
-# ------------------------------------------
+add_executable(${APP_NAME} app/main.cpp)
 
 # ------------------------------------------
 # 1. Linking
@@ -61,7 +55,3 @@ endif()
 
 target_link_libraries(${APP_NAME} PRIVATE project_settings)
 target_link_libraries(${APP_NAME} PRIVATE core)
-# target_link_libraries( ${APP_NAME} PRIVATE component) target_link_libraries(
-# ${APP_NAME} PRIVATE physics) target_link_libraries( ${APP_NAME} PRIVATE
-# ${rendering}) target_link_libraries( ${APP_NAME} PRIVATE ${ecs})
-# target_link_libraries( ${APP_NAME} PRIVATE utils)

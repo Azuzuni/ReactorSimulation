@@ -1,11 +1,11 @@
-#include "core/Color.h"
-#include "component/factory/Factory.h"
+#include "component/factory/Factory.hpp"
 #include "component/Lifetime.hpp"
-#include "component/Position.h"
-#include "component/Velocity.h"
-#include "component/shape/Circle.h"
-#include "component/shape/Rectangle.h"
+#include "component/Position.hpp"
 #include "component/Types.hpp"
+#include "component/Velocity.hpp"
+#include "component/shape/Circle.hpp"
+#include "component/shape/Rectangle.hpp"
+#include "core/Color.hpp"
 #include "utils/Configuration.hpp"
 using namespace component;
 
@@ -16,7 +16,6 @@ void Factory::InsertButton(ecs::Impl &buffer) {
   buffer.Add<component::shape::Rectangle>(
       entity, component::shape::Rectangle{200, 100, color::BUTTON});
 }
-
 
 void Factory::InsertParticle(ecs::Impl &buffer,
                              const component::Position &position,

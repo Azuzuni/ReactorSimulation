@@ -1,13 +1,9 @@
 #pragma once
 #include "ecs/EcsImpl.hpp"
-#include "rendering/RenderImpl.h"
-#include "scene/SceneIF.h"
-#include <atomic>
-#include <cstddef>
-#include <cstdint>
+#include "rendering/RenderImpl.hpp"
+#include "scene/SceneIF.hpp"
 #include <memory>
 #include <unordered_map>
-#include <utility>
 
 //! Core class for simulation
 /*!

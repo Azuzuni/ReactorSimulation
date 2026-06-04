@@ -1,5 +1,5 @@
 #pragma once
-#include "core/Color.h"
+#include "core/Color.hpp"
 #include "ecs/EcsImpl.hpp"
 #include "utils/Configuration.hpp"
 #include <utility>

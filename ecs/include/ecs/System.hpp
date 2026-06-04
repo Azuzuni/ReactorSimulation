@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component/factory/Factory.h"
+#include "component/factory/Factory.hpp"
 #include "ecs/EcsImpl.hpp"
 #include "utils/Configuration.hpp"
 #include <vector>

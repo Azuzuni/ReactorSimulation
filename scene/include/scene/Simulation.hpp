@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "scene/SceneIF.h"
+#include "scene/SceneIF.hpp"
 namespace scene {
 
 class Simulation : public SceneIF {

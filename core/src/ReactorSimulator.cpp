@@ -1,9 +1,9 @@
-#include "core/ReactorSimulator.h"
-#include "ecs/System.h"
+#include "core/ReactorSimulator.hpp"
+#include "ecs/System.hpp"
 #include "raylib.h"
-#include "scene/MainMenu.h"
-#include "scene/SceneIF.h"
-#include "scene/Simulation.h"
+#include "scene/MainMenu.hpp"
+#include "scene/SceneIF.hpp"
+#include "scene/Simulation.hpp"
 #include <atomic>
 #include <cassert>
 #include <chrono>

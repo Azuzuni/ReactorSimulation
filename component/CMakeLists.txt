@@ -8,22 +8,13 @@ set(MODULE_NAME component)
 # 1. Files
 # ------------------------------------------
 
-set(HEADERS
-    include/component/shape/Circle.h
-    include/component/shape/Rectangle.h
-    include/component/factory/Factory.h
-    include/component/Lifetime.hpp
-    include/component/Position.h
-    include/component/Types.hpp
-    include/component/Velocity.h)
-
 set(SOURCES src/factory/Factory.cpp)
 
 # ------------------------------------------
 # 1. Library
 # ------------------------------------------
 
-add_library(${MODULE_NAME} STATIC ${SOURCES} ${HEADERS})
+add_library(${MODULE_NAME} STATIC ${SOURCES})
 
 # ------------------------------------------
 # 1. Linking

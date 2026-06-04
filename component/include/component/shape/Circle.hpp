@@ -1,5 +1,5 @@
 #pragma once
-#include "core/Color.h"
+#include "core/Color.hpp"
 #include <cstdint>
 namespace component {
 namespace shape {
@@ -12,11 +12,10 @@ struct Circle {
   Circle &operator=(Circle &&) = default;
   Circle &operator=(const Circle &) = default;
   ~Circle() = default;
-  
+
   float radius{};
   color::Color color{color::PARTICLE};
 };
-
 
 }; // namespace shape
 }; // namespace component

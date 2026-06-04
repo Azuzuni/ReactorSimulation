@@ -8,15 +8,13 @@ set(MODULE_NAME utils)
 # 1. Files
 # ------------------------------------------
 
-set(HEADERS include/utils/Configuration.hpp)
-
 set(SOURCES Configuration.cpp)
 
 # ------------------------------------------
 # 1. Library
 # ------------------------------------------
 
-add_library(${MODULE_NAME} STATIC ${SOURCES} ${HEADERS})
+add_library(${MODULE_NAME} STATIC ${SOURCES})
 
 # ------------------------------------------
 # 1. Linking

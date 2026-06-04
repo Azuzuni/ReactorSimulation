@@ -1,8 +1,8 @@
-#include "scene/MainMenu.h"
-#include "component/Position.h"
-#include "component/factory/Factory.h"
-#include "component/shape/Rectangle.h"
-#include "core/Color.h"
+#include "scene/MainMenu.hpp"
+#include "component/Position.hpp"
+#include "component/factory/Factory.hpp"
+#include "component/shape/Rectangle.hpp"
+#include "core/Color.hpp"
 #include "ecs/EcsImpl.hpp"
 #include "utils/Configuration.hpp"
 using namespace scene;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene/SceneIF.h"
+#include "scene/SceneIF.hpp"
 namespace scene {
 
 class MainMenu : public SceneIF {
