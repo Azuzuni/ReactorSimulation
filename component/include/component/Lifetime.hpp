@@ -1,10 +1,11 @@
 #pragma once
 
+#include <chrono>
 namespace component {
 
 struct Lifetime {
-  float lifeTime{};
-  Lifetime(float lifeTime) : lifeTime(lifeTime) {}
+  std::chrono::milliseconds lifeTime{1000};
+  Lifetime(const std::chrono::milliseconds &lifeTime) : lifeTime(lifeTime) {}
 };
 
 }; // namespace component

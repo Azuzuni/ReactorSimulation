@@ -4,7 +4,7 @@
 namespace component {
 
 struct Velocity {
-  Velocity(util::PosType dX, util::PosType dY) : dX{dX}, dY{dY} {}
+  constexpr Velocity(util::PosType dX, util::PosType dY) : dX{dX}, dY{dY} {}
   Velocity() = default;
   Velocity(Velocity &&) = default;
   Velocity(const Velocity &) = default;

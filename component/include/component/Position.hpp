@@ -3,7 +3,7 @@
 namespace component {
 
 struct Position {
-  Position(util::PosType x, util::PosType y) : x{x}, y{y} {}
+  constexpr Position(util::PosType x, util::PosType y) : x{x}, y{y} {}
   Position() = default;
   Position(Position &&) = default;
   Position(const Position &) = default;

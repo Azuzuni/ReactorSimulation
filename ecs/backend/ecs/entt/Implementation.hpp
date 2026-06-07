@@ -79,11 +79,9 @@ auto ecs::EnTTEcs::GetImpl(util::Entity entity) {
 template <typename... Components, typename Lambda>
 inline void ecs::EnTTEcs::EachImpl(Lambda &&lambda) {
   auto view = mRegistry.view<Components...>();
-
-  for (auto entity : view) {
-    lambda(static_cast<util::Entity>(entity),
-           view.template get<Components>(entity)...);
-  }
+  view.each([&](auto entity, Components &...comps) {
+    lambda(static_cast<util::Entity>(entity), comps...);
+  });
 }
 
 template <typename... Components, typename Lambda>

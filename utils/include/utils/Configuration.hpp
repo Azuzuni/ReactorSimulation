@@ -12,9 +12,7 @@ namespace util {
 using PosType = float;
 using Entity = uint32_t;
 
-constexpr float kParticleRadius{20};
-constexpr float kParticleStartingMomentumX{300};
-constexpr float kParticleStartingMomentumY{300};
+constexpr PosType COMPUTED_WIDTH{};
+constexpr PosType COMPUTED_HEIGHT{};
 
-
-}; // namespace util 
+}; // namespace util

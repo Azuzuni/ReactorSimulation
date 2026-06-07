@@ -1,15 +1,7 @@
 #pragma once
 
-#include "component/factory/Factory.hpp"
 #include "ecs/EcsImpl.hpp"
-#include "utils/Configuration.hpp"
-#include <vector>
 namespace ecs {
-
-struct EntityQueue {
-  std::vector<component::Type> spawnQueue{};
-  std::vector<util::Entity> killQueue{};
-};
 
 class System {
   System() = delete;
@@ -21,6 +13,7 @@ class System {
 
   static void Flush(ecs::Impl &buffer);
   static void ParticleUpdate(ecs::Impl &buffer, float deltaTime);
+  static void FuelUpdate(ecs::Impl &buffer, float deltaTime);
 
 public:
   static void Update(ecs::Impl &buffer, float deltaTime);

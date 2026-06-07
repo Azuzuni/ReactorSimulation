@@ -4,12 +4,9 @@
 #include "scene/MainMenu.hpp"
 #include "scene/SceneIF.hpp"
 #include "scene/Simulation.hpp"
-#include <atomic>
 #include <cassert>
 #include <chrono>
-#include <cstdint>
 #include <memory>
-#include <thread>
 
 // ===================================================
 // 1. Constructor / Destructor
@@ -49,7 +46,7 @@ void ReactorSimulator::Render() {
 // ---------------------------------------------------
 
 void ReactorSimulator::Run() {
-  mScenes[scene::MAIN_MENU]->LoadScene(mEcs);
+  mScenes[scene::SIMULATION]->LoadScene(mEcs);
 
   using clock = std::chrono::high_resolution_clock;
   using seconds = std::chrono::duration<float>;

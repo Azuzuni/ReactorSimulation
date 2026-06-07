@@ -5,6 +5,6 @@
 
 #include "core/ReactorSimulator.hpp"
 int main() {
-  ReactorSimulator simulation{1720, 900, "Test"};
+  ReactorSimulator simulation{1920, 1080, "Test"};
   return 0;
 }

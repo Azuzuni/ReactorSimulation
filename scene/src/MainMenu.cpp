@@ -1,6 +1,5 @@
 #include "scene/MainMenu.hpp"
 #include "component/Position.hpp"
-#include "component/factory/Factory.hpp"
 #include "component/shape/Rectangle.hpp"
 #include "core/Color.hpp"
 #include "ecs/EcsImpl.hpp"
@@ -20,10 +19,13 @@ void MainMenu::LoadScene(ecs::Impl &ecsImpl) {
   ecsImpl.Add<component::Position>(entity, component::Position{750, 400});
   ecsImpl.Add<component::shape::Rectangle>(
       entity, component::shape::Rectangle{200, 100, color::BUTTON});
-  component::Factory::InsertParticle(ecsImpl, {POS_X, POS_Y},
-                                     {VELOCITY_X, VELOCITY_Y}, {RADIUS, COLOR});
-  component::Factory::InsertParticle(ecsImpl, {POS_X, POS_Y + 30},
-                                     {VELOCITY_X, VELOCITY_Y}, {RADIUS, COLOR});
-  component::Factory::InsertParticle(ecsImpl, {POS_X, POS_Y + 60},
-                                     {VELOCITY_X, VELOCITY_Y}, {RADIUS, COLOR});
+  // component::Factory::CreateParticle(ecsImpl, {POS_X, POS_Y},
+  //                                    {VELOCITY_X, VELOCITY_Y}, {RADIUS,
+  //                                    COLOR});
+  // component::Factory::CreateParticle(ecsImpl, {POS_X, POS_Y + 30},
+  //                                    {VELOCITY_X, VELOCITY_Y}, {RADIUS,
+  //                                    COLOR});
+  // component::Factory::CreateParticle(ecsImpl, {POS_X, POS_Y + 60},
+  //                                    {VELOCITY_X, VELOCITY_Y}, {RADIUS,
+  //                                    COLOR});
 }

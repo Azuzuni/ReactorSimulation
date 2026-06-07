@@ -5,7 +5,7 @@ namespace component {
 namespace shape {
 
 struct Circle {
-  Circle(float r, uint32_t color) : radius{r}, color{color} {}
+  constexpr Circle(float r, uint32_t color) : radius{r}, color{color} {}
   Circle() = default;
   Circle(Circle &&) = default;
   Circle(const Circle &) = default;
