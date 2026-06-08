@@ -5,7 +5,6 @@
 #include "component/shape/Circle.hpp"
 #include "ecs/EcsImpl.hpp"
 #include <cstdint>
-#include <vector>
 
 #ifndef COMPONENT_FUEL_BUNDLE
 #define COMPONENT_FUEL_BUNDLE                                                  \
@@ -36,13 +35,15 @@ struct Fuel {
   Fuel &operator=(const Fuel &) = default;
   ~Fuel() = default;
 
-  static void Create(ecs::Impl &buffer, const component::Position &position,
-                     const component::shape::Circle &circle = {FUEL_RADIUS,
-                                                               FUEL_COLOR});
   static component::Position DecayUpdate(ecs::Impl &buffer,
                                          component::Position &position,
                                          component::Decay &decay,
                                          float deltaTime);
+  static bool CollisionCheck(ecs::Impl &buffer, component::Position &position,
+                             component::shape::Circle &circle);
+  static void Create(ecs::Impl &buffer, const component::Position &position,
+                     const component::shape::Circle &circle = {FUEL_RADIUS,
+                                                               FUEL_COLOR});
 
 private:
   bool cheapCheat{};

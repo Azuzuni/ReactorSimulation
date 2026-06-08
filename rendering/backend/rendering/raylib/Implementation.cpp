@@ -42,39 +42,20 @@ constexpr Color RaylibRender::ToColor(const uint32_t &rgba) const noexcept {
                static_cast<uint8_t>((rgba) & 0xFF));
 }
 
-constexpr void
-RaylibRender::ParticleUpdate(const ecs::Impl &buffer) const noexcept {
-  // buffer.Each<component::bundle::Particle>(
-  //     [&](const util::Entity, const component::bundle::Particle &particle) {
-  //       ::DrawCircle(static_cast<int>(particle.position.x),
-  //                    static_cast<int>(particle.position.y),
-  //                    particle.circle.radius, ToColor(particle.circle.color));
-  //     });
-
+void RaylibRender::DrawCircle(const ecs::Impl &buffer) const noexcept {
   buffer.Each<component::Position, component::shape::Circle>(
       [&](const util::Entity, const component::Position &position,
-          const component::shape::Circle &circle) {
+          const component::shape::Circle &circle) -> bool {
         ::DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y),
                      circle.radius, ToColor(circle.color));
+        return true;
       });
 }
-
-// constexpr void
-// RaylibRender::ButtonUpdate(const ecs::Impl &buffer) const noexcept {
-//   buffer.Each<component::bundle::Button>(
-//       [&](const util::Entity, const component::bundle::Button &button) {
-//         ::DrawRectangle(static_cast<int>(button.position.x),
-//                         static_cast<int>(button.position.y),
-//                         static_cast<int>(button.rectangle.width),
-//                         static_cast<int>(button.rectangle.height),
-//                         ToColor(button.rectangle.color));
-//       });
-// }
 
 void RaylibRender::UpdateImpl(const ecs::Impl &buffer) const noexcept {
   ::BeginDrawing();
   ::ClearBackground(ToColor(color::BACKGROUND));
-  ParticleUpdate(buffer);
+  this->DrawCircle(buffer);
 
   ::EndDrawing();
 }

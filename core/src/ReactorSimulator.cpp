@@ -1,6 +1,5 @@
 #include "core/ReactorSimulator.hpp"
 #include "ecs/System.hpp"
-#include "raylib.h"
 #include "scene/MainMenu.hpp"
 #include "scene/SceneIF.hpp"
 #include "scene/Simulation.hpp"
@@ -24,15 +23,7 @@ ReactorSimulator::ReactorSimulator(int width, int height, const char *title)
 // 2. Implementations
 // ===================================================
 
-void ReactorSimulator::Logic() {
-  if (IsKeyPressed(KEY_A)) {
-    mScenes[scene::MAIN_MENU]->LoadScene(mEcs);
-  } else if (IsKeyPressed(KEY_S)) {
-    mScenes[scene::SIMULATION]->LoadScene(mEcs);
-  } else {
-    ecs::System::Update(mEcs, kDt);
-  }
-}
+void ReactorSimulator::Logic() { ecs::System::Update(mEcs, kDt); }
 
 // ---------------------------------------------------
 

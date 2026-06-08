@@ -79,15 +79,19 @@ auto ecs::EnTTEcs::GetImpl(util::Entity entity) {
 template <typename... Components, typename Lambda>
 inline void ecs::EnTTEcs::EachImpl(Lambda &&lambda) {
   auto view = mRegistry.view<Components...>();
-  view.each([&](auto entity, Components &...comps) {
-    lambda(static_cast<util::Entity>(entity), comps...);
-  });
+  for (auto &entity : view) {
+    if (!lambda(static_cast<util::Entity>(entity),
+                view.template get<Components>(entity)...))
+      break;
+  }
 }
 
 template <typename... Components, typename Lambda>
 inline void ecs::EnTTEcs::EachImpl(Lambda &&lambda) const {
   const auto view = mRegistry.view<Components...>();
-  view.each([&](const auto entity, const Components &...comps) {
-    lambda(static_cast<util::Entity>(entity), comps...);
-  });
+  for (const auto &entity : view) {
+    if (!lambda(static_cast<util::Entity>(entity),
+                view.template get<Components>(entity)...))
+      break;
+  }
 }; // namespace ecs

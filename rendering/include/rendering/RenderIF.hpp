@@ -58,4 +58,8 @@ public:
   inline void Update(const ecs::Impl &buffer) const noexcept {
     derived().UpdateImpl(buffer);
   }
+
+  inline void Update(const ecs::Impl &buffer) noexcept {
+    derived().UpdateImpl(buffer);
+  }
 };

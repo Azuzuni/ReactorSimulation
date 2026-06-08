@@ -9,7 +9,7 @@
 #include "rendering/raylib/Implementation.hpp"
 using RenderBackend = RaylibRender;
 #elif defined(RENDERING_sfml)
-#include "rendering/sfml/SfmlRender.h"
+#include "rendering/sfml/Implementation.hpp"
 using RenderBackend = SfmlRender;
 #else
 #error "Undefined / Defined backend is incorrect."

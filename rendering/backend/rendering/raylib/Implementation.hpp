@@ -23,8 +23,7 @@ class RaylibRender : public RenderIF<RaylibRender> {
   bool ShouldCloseImpl() const noexcept;
 
   constexpr Color ToColor(const uint32_t &rgba) const noexcept;
-  constexpr void ParticleUpdate(const ecs::Impl &buffer) const noexcept;
-  constexpr void ButtonUpdate(const ecs::Impl &buffer) const noexcept;
+  void DrawCircle(const ecs::Impl &buffer) const noexcept;
   void UpdateImpl(const ecs::Impl &buffer) const noexcept;
 
 public:
