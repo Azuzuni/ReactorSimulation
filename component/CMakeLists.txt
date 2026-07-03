@@ -8,8 +8,9 @@ set(MODULE_NAME component)
 # 1. Files
 # ------------------------------------------
 
-set(SOURCES include/component/bundles/Particle.cpp
-            include/component/bundles/Fuel.cpp)
+set(SOURCES
+    include/component/bundles/Particle.cpp include/component/bundles/Fuel.cpp
+    include/component/bundles/ControlRod.cpp)
 
 # ------------------------------------------
 # 1. Library

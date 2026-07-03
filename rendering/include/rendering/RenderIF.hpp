@@ -1,8 +1,6 @@
 #pragma once
-#include "core/Color.hpp"
 #include "ecs/EcsImpl.hpp"
-#include "utils/Configuration.hpp"
-#include <utility>
+#include "utils/InputData.hpp"
 
 /**
  * @file
@@ -16,6 +14,7 @@
  * to be used through methods calls of base class
   @tparam Impl CRTP child class with implementations
  */
+
 template <typename Impl> class RenderIF {
 protected:
   RenderIF() = default;
@@ -55,11 +54,11 @@ public:
     return derived().ShouldCloseImpl();
   }
 
-  inline void Update(const ecs::Impl &buffer) const noexcept {
-    derived().UpdateImpl(buffer);
+  inline InputData Update(const ecs::Impl &buffer) const noexcept {
+    return derived().UpdateImpl(buffer);
   }
 
-  inline void Update(const ecs::Impl &buffer) noexcept {
-    derived().UpdateImpl(buffer);
+  inline InputData Update(const ecs::Impl &buffer) noexcept {
+    return derived().UpdateImpl(buffer);
   }
 };

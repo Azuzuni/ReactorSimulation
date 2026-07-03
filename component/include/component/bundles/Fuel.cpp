@@ -42,14 +42,16 @@ bool component::Fuel::CollisionCheck(ecs::Impl &buffer,
       [&](util::Entity entity,
           COMPONENT_PARTICLE_BUNDLE_VARS(position_p, velocity_p, circle_p,
                                          lifeTime_p, particle_p)) -> bool {
-        if (circle_p.trigger)
-          return false;
+        if (circle_p.color != component::Particle::CIRCLE_COLOR_END)
+          return true;
 
         util::PosType dX{std::abs(position.x - position_p.x)};
         util::PosType dY{std::abs(position.y - position_p.y)};
         float radiusSum{circle.radius + circle_p.radius};
         result =
             static_cast<float>(dX * dX + dY * dY) <= (radiusSum * radiusSum);
+        if (result)
+          buffer.Destroy(entity);
         return !result;
       });
   return result;

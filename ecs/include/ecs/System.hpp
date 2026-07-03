@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ecs/EcsImpl.hpp"
+#include "utils/InputData.hpp"
 namespace ecs {
 
 class System {
@@ -14,9 +15,11 @@ class System {
   static void Flush(ecs::Impl &buffer);
   static void ParticleUpdate(ecs::Impl &buffer, float deltaTime);
   static void FuelUpdate(ecs::Impl &buffer, float deltaTime);
+  static void ControlRodUpdate(ecs::Impl &buffer, InputData &inputData,
+                               float deltaTime);
 
 public:
-  static void Update(ecs::Impl &buffer, float deltaTime);
+  static void Update(ecs::Impl &buffer, InputData &InputData, float deltaTime);
 };
 
 }; // namespace ecs

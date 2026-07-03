@@ -1,12 +1,13 @@
 #include "ecs/System.hpp"
 #include "component/Lifetime.hpp"
 #include "component/Position.hpp"
+#include "component/bundles/ControlRod.hpp"
 #include "component/bundles/Fuel.hpp"
 #include "component/bundles/Particle.hpp"
 #include "ecs/EcsImpl.hpp"
 #include "utils/Configuration.hpp"
+#include "utils/InputData.hpp"
 #include <chrono>
-#include <iostream>
 #include <vector>
 
 void ecs::System::Flush(ecs::Impl &backBuffer) {
@@ -34,8 +35,6 @@ void ecs::System::ParticleUpdate(ecs::Impl &buffer, float deltaTime) {
       return true;
 
     component::Particle::PositionUpdate(buffer, position, velocity, deltaTime);
-    component::Particle::VelocityUpdate(buffer, velocity, deltaTime);
-    component::Particle::ShapwUpdate(buffer, circle, deltaTime);
     return true;
   });
 }
@@ -51,6 +50,7 @@ void ecs::System::FuelUpdate(ecs::Impl &buffer, float deltaTime) {
         if (result.x != -1 && result.y != -1)
           particleQueue.emplace_back(result);
         if (component::Fuel::CollisionCheck(buffer, position, circle)) {
+
           circle.trigger = true;
           circle.color = 0x2222AAFF;
           particleQueue.emplace_back(position);
@@ -65,8 +65,23 @@ void ecs::System::FuelUpdate(ecs::Impl &buffer, float deltaTime) {
     component::Particle::Create(buffer, position);
 }
 
-void ecs::System::Update(ecs::Impl &buffer, float deltaTime) {
-  ParticleUpdate(buffer, deltaTime);
+void ecs::System::ControlRodUpdate(ecs::Impl &buffer, InputData &inputData,
+                                   float deltaTime) {
+  component::ControlRod::Move(buffer, inputData, KeyId::ARROW_UP, deltaTime);
+  component::ControlRod::Move(buffer, inputData, KeyId::ARROW_DOWN, deltaTime);
+  buffer.Each<COMPONENT_CONTROL_ROD_BUNDLE>(
+      [&](util::Entity, COMPONENT_CONTROL_ROD_BUNDLE_VARS(position, rectangle,
+                                                          controlRod)) -> bool {
+        component::ControlRod::CollisionCheck(buffer, position, rectangle,
+                                              deltaTime);
+        return true;
+      });
+}
+
+void ecs::System::Update(ecs::Impl &buffer, InputData &inputData,
+                         float deltaTime) {
   FuelUpdate(buffer, deltaTime);
+  ParticleUpdate(buffer, deltaTime);
+  ControlRodUpdate(buffer, inputData, deltaTime);
   Flush(buffer);
 }

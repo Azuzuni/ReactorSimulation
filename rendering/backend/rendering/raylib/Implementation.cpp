@@ -1,10 +1,12 @@
 #include "rendering/raylib/Implementation.hpp"
 #include "component/Position.hpp"
 #include "component/shape/Circle.hpp"
+#include "component/shape/Rectangle.hpp"
 #include "core/Color.hpp"
 #include "ecs/EcsImpl.hpp"
 #include "raylib.h"
 #include "utils/Configuration.hpp"
+#include "utils/InputData.hpp"
 #include <cstdint>
 
 // ===================================================
@@ -52,10 +54,33 @@ void RaylibRender::DrawCircle(const ecs::Impl &buffer) const noexcept {
       });
 }
 
-void RaylibRender::UpdateImpl(const ecs::Impl &buffer) const noexcept {
+void RaylibRender::DrawRectangle(const ecs::Impl &buffer) const noexcept {
+  buffer.Each<component::Position, component::shape::Rectangle>(
+      [&](const util::Entity, const component::Position &position,
+          const component::shape::Rectangle &rectangle) -> bool {
+        ::DrawRectangle(position.x, position.y, rectangle.width,
+                        rectangle.height, ToColor(rectangle.color));
+        return true;
+      });
+}
+
+InputData RaylibRender::InputHandler() const noexcept {
+  InputData input{};
+  if (IsKeyDown(KEY_DOWN))
+    input.key = KeyId::ARROW_DOWN;
+
+  if (IsKeyDown(KEY_UP))
+    input.key = KeyId::ARROW_UP;
+
+  return input;
+}
+
+InputData RaylibRender::UpdateImpl(const ecs::Impl &buffer) const noexcept {
   ::BeginDrawing();
   ::ClearBackground(ToColor(color::BACKGROUND));
   this->DrawCircle(buffer);
+  this->DrawRectangle(buffer);
 
   ::EndDrawing();
+  return this->InputHandler();
 }

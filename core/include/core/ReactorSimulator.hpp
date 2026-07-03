@@ -2,6 +2,7 @@
 #include "ecs/EcsImpl.hpp"
 #include "rendering/RenderImpl.hpp"
 #include "scene/SceneIF.hpp"
+#include "utils/InputData.hpp"
 #include <memory>
 #include <unordered_map>
 
@@ -34,6 +35,8 @@ class ReactorSimulator {
 
   //! @param mRenderer -> rendering
   RenderBackend mRenderer;
+
+  InputData mInputData{};
 
   void Logic();
   void Render();

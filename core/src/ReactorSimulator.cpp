@@ -23,7 +23,7 @@ ReactorSimulator::ReactorSimulator(int width, int height, const char *title)
 // 2. Implementations
 // ===================================================
 
-void ReactorSimulator::Logic() { ecs::System::Update(mEcs, kDt); }
+void ReactorSimulator::Logic() { ecs::System::Update(mEcs, mInputData, kDt); }
 
 // ---------------------------------------------------
 
@@ -31,7 +31,7 @@ void ReactorSimulator::Render() {
 
   // render data
   const auto &frontEcs{mEcs};
-  mRenderer.Update(frontEcs);
+  mInputData = mRenderer.Update(frontEcs);
 }
 
 // ---------------------------------------------------

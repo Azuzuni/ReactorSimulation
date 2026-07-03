@@ -6,8 +6,9 @@ namespace component {
 namespace shape {
 
 struct Rectangle {
-  Rectangle(util::PosType width, util::PosType height, uint32_t color)
-      : width{width}, height{height}, color{color} {}
+  constexpr Rectangle(util::PosType width, util::PosType height, uint32_t color,
+                      bool trigger = false)
+      : width{width}, height{height}, color{color}, trigger(trigger) {}
   Rectangle() = default;
   Rectangle(Rectangle &&) = default;
   Rectangle(const Rectangle &) = default;
@@ -15,6 +16,7 @@ struct Rectangle {
   Rectangle &operator=(const Rectangle &) = default;
   ~Rectangle() = default;
 
+  bool trigger{};
   util::PosType width{};
   util::PosType height{};
   color::Color color{color::BUTTON};
