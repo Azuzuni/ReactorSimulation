@@ -5,6 +5,7 @@
 
 #include "ecs/EcsImpl.hpp"
 #include "rendering/RenderIF.hpp"
+#include "utils/InputData.hpp"
 
 /**
  * @file
@@ -34,9 +35,8 @@ private:
   sf::Color ToColor(const uint32_t &rgba) const noexcept;
 
   void ParticleUpdate(const ecs::Impl &buffer) noexcept;
-  void ButtonUpdate(const ecs::Impl &buffer) const noexcept;
-
-  void UpdateImpl(const ecs::Impl &buffer) noexcept;
+  void DrawRectangle(const ecs::Impl &buffer) noexcept;
+  InputData UpdateImpl(const ecs::Impl &buffer) noexcept;
 
 public:
   SfmlRender(int width, int height, const char *title);

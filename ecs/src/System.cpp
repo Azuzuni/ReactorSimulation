@@ -52,7 +52,7 @@ void ecs::System::FuelUpdate(ecs::Impl &buffer, float deltaTime) {
         if (component::Fuel::CollisionCheck(buffer, position, circle)) {
 
           circle.trigger = true;
-          circle.color = 0x2222AAFF;
+          circle.color = component::FUEL_COLOR_DECAY;
           particleQueue.emplace_back(position);
           particleQueue.emplace_back(position);
           particleQueue.emplace_back(position);

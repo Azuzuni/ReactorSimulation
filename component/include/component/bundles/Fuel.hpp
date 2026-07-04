@@ -24,8 +24,9 @@
 
 namespace component {
 
-constexpr float FUEL_RADIUS{20.f};
+constexpr float FUEL_RADIUS{10.f};
 constexpr uint32_t FUEL_COLOR{0x6666FFFF};
+constexpr uint32_t FUEL_COLOR_DECAY{0x6666FF55};
 
 struct Fuel {
   Fuel() = default;

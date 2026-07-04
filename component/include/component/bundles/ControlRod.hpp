@@ -41,9 +41,9 @@ struct ControlRod {
   ControlRod &operator=(const ControlRod &) = default;
   ~ControlRod() = default;
 
-  static constexpr util::PosType RECTANGLE_WIDTH{50};
+  static constexpr util::PosType RECTANGLE_WIDTH{20};
   static constexpr util::PosType RECTANGLE_HEIGHT{1000};
-  static constexpr uint32_t RECTANGLE_COLOR{0xFF0000FF};
+  static constexpr uint32_t RECTANGLE_COLOR{0x888888FF};
   static constexpr component::shape::Rectangle DEFAULT_RECTANGLE{
       RECTANGLE_WIDTH, RECTANGLE_HEIGHT, RECTANGLE_COLOR, false};
 

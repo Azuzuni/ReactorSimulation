@@ -1,8 +1,12 @@
 #include "rendering/sfml/Implementation.hpp"
+#include "SFML/Graphics/RectangleShape.hpp"
+#include "SFML/Window/Keyboard.hpp"
 #include "component/Position.hpp"
 #include "component/shape/Circle.hpp"
+#include "component/shape/Rectangle.hpp"
 #include "ecs/EcsImpl.hpp"
 #include "utils/Configuration.hpp"
+#include "utils/InputData.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
@@ -69,17 +73,43 @@ void SfmlRender::ParticleUpdate(const ecs::Impl &buffer) noexcept {
       });
 }
 
-void SfmlRender::UpdateImpl(const ecs::Impl &buffer) noexcept {
+void SfmlRender::DrawRectangle(const ecs::Impl &buffer) noexcept {
+  buffer.Each<component::Position, component::shape::Rectangle>(
+      [&](const util::Entity, const component::Position &position,
+          const component::shape::Rectangle &rectangle) -> bool {
+        sf::RectangleShape shape;
+        shape.setSize({rectangle.width, rectangle.height});
+        shape.setFillColor(ToColor(rectangle.color));
+        shape.setPosition({position.x, position.y});
+        window.draw(shape);
+        return true;
+      });
+}
 
+InputData SfmlRender::UpdateImpl(const ecs::Impl &buffer) noexcept {
+  InputData result{};
   while (auto event = window.pollEvent()) {
     if (event->is<sf::Event::Closed>()) {
       window.close();
+    }
+    if (const auto *key = event->getIf<sf::Event::KeyPressed>()) {
+      if (key->code == sf::Keyboard::Key::Escape)
+        window.close();
+
+      if (key->code == sf::Keyboard::Key::Up)
+        result.key = KeyId::ARROW_UP;
+
+      if (key->code == sf::Keyboard::Key::Down)
+        result.key = KeyId::ARROW_DOWN;
     }
   }
 
   window.clear(ToColor(color::BACKGROUND));
 
   ParticleUpdate(buffer);
+  DrawRectangle(buffer);
 
   window.display();
+
+  return result;
 }

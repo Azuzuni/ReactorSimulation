@@ -45,11 +45,11 @@ struct Particle {
 
   static constexpr component::Velocity DEFAULT_VELOCITY{1400, 1400};
   static constexpr uint32_t CIRCLE_COLOR_START{0xFFFFFFFF};
-  static constexpr uint32_t CIRCLE_COLOR_END{0x777777FF};
+  static constexpr uint32_t CIRCLE_COLOR_END{0xFF0000FF};
   static constexpr uint32_t CIRCLE_COLOR_STEP{0x05050500};
   static constexpr float DAMPING = 0.998f;
   static constexpr component::shape::Circle DEFAULT_CIRCLE{
-      10.f, CIRCLE_COLOR_START, true};
+      5.f, CIRCLE_COLOR_START, true};
   static constexpr float MIN_SPEED = []() constexpr -> float {
     float x = component::Particle::DEFAULT_VELOCITY.dX *
                   component::Particle::DEFAULT_VELOCITY.dX +
