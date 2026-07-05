@@ -18,6 +18,9 @@ set(RENDERING
 set(ECS
     "entt"
     CACHE STRING "ECS implementation")
+set(BUILD_TESTS
+    ON
+    CACHE BOOL "Build unit tests")
 
 add_library(project_settings INTERFACE)
 set_target_properties(
@@ -34,13 +37,12 @@ message(STATUS "ecs='${ECS}'")
 # ------------------------------------------
 # 1. Libraries
 # ------------------------------------------
-
-add_subdirectory(rendering)
-add_subdirectory(ecs)
-add_subdirectory(utils)
-add_subdirectory(scene)
-add_subdirectory(component)
-add_subdirectory(core)
+add_subdirectory(modules/rendering)
+add_subdirectory(modules/ecs)
+add_subdirectory(modules/utils)
+add_subdirectory(modules/scene)
+add_subdirectory(modules/component)
+add_subdirectory(modules/core)
 
 # ------------------------------------------
 # 1. Exec
@@ -54,3 +56,17 @@ add_executable(${APP_NAME} app/main.cpp)
 
 target_link_libraries(${APP_NAME} PRIVATE project_settings)
 target_link_libraries(${APP_NAME} PRIVATE core)
+
+# ------------------------------------------
+# 1. LSP command detection
+# ------------------------------------------
+
+if(CMAKE_EXPORT_COMPILE_COMMANDS)
+    add_custom_target(
+    copy_compile_commands ALL
+    COMMAND
+      ${CMAKE_COMMAND} -E copy_if_different
+      "${CMAKE_BINARY_DIR}/compile_commands.json"
+      "${CMAKE_SOURCE_DIR}/compile_commands.json"
+    COMMENT "Copying compile_commands.json to project root for LSP")
+endif()
