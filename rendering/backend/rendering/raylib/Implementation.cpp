@@ -37,7 +37,7 @@ bool RaylibRender::ShouldCloseImpl() const noexcept {
 }
 // ---------------------------------------------------
 
-constexpr Color RaylibRender::ToColor(const uint32_t &rgba) const noexcept {
+constexpr Color RaylibRender::ToColor(const color::Color &rgba) const noexcept {
   return Color(static_cast<uint8_t>((rgba >> 24) & 0xFF),
                static_cast<uint8_t>((rgba >> 16) & 0xFF),
                static_cast<uint8_t>((rgba >> 8) & 0xFF),

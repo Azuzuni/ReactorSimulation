@@ -15,8 +15,6 @@ ReactorSimulator::ReactorSimulator(int width, int height, const char *title)
     : mRenderer{width, height, title} {
   mScenes[scene::MAIN_MENU] = std::make_unique<scene::MainMenu>();
   mScenes[scene::SIMULATION] = std::make_unique<scene::Simulation>();
-
-  Run();
 }
 
 // ===================================================

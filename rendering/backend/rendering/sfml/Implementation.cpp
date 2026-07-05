@@ -1,9 +1,11 @@
+// contains AI GENERATED code
 #include "rendering/sfml/Implementation.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include "component/Position.hpp"
 #include "component/shape/Circle.hpp"
 #include "component/shape/Rectangle.hpp"
+#include "core/Color.hpp"
 #include "ecs/EcsImpl.hpp"
 #include "utils/Configuration.hpp"
 #include "utils/InputData.hpp"
@@ -50,14 +52,14 @@ bool SfmlRender::ShouldCloseImpl() const noexcept { return !window.isOpen(); }
 
 // ---------------------------------------------------
 
-sf::Color SfmlRender::ToColor(const uint32_t &rgba) const noexcept {
+sf::Color SfmlRender::ToColor(const color::Color &rgba) const noexcept {
   return sf::Color(static_cast<uint8_t>((rgba >> 24) & 0xFF),
                    static_cast<uint8_t>((rgba >> 16) & 0xFF),
                    static_cast<uint8_t>((rgba >> 8) & 0xFF),
                    static_cast<uint8_t>(rgba & 0xFF));
 }
 
-void SfmlRender::ParticleUpdate(const ecs::Impl &buffer) noexcept {
+void SfmlRender::DrawCircle(const ecs::Impl &buffer) noexcept {
 
   buffer.Each<component::Position, component::shape::Circle>(
       [&](const util::Entity, const component::Position &position,
@@ -106,7 +108,7 @@ InputData SfmlRender::UpdateImpl(const ecs::Impl &buffer) noexcept {
 
   window.clear(ToColor(color::BACKGROUND));
 
-  ParticleUpdate(buffer);
+  DrawCircle(buffer);
   DrawRectangle(buffer);
 
   window.display();

@@ -11,6 +11,7 @@
 // MACROS
 // =============================
 
+// macro for use with ecs::Impl::Each<BUNDLE>()
 #ifndef COMPONENT_PARTICLE_BUNDLE
 #define COMPONENT_PARTICLE_BUNDLE                                              \
   component::Position, component::Velocity, component::shape::Circle,          \
@@ -19,6 +20,7 @@
 #error "Redefinition of COMPONENT_PARTICLE_BUNDLE"
 #endif
 
+// macro for use with ecs::Impl::Each<>(BUNDLE_VARS)
 #ifndef COMPONENT_PARTICLE_BUNDLE_VARS
 #define COMPONENT_PARTICLE_BUNDLE_VARS(position, velocity, circle, lifeTime,   \
                                        particle)                               \
@@ -35,7 +37,11 @@
 
 namespace component {
 
+//! @brief component bundle and tag containing methods for particle logic
 struct Particle {
+  //-----------------------------------
+  // Constructors
+  //-----------------------------------
   Particle() = default;
   Particle(Particle &&) = default;
   Particle(const Particle &) = default;
@@ -43,6 +49,11 @@ struct Particle {
   Particle &operator=(const Particle &) = default;
   ~Particle() = default;
 
+  //-----------------------------------
+  // Default values
+  //-----------------------------------
+
+  //! @TODO fix consistency across components
   static constexpr component::Velocity DEFAULT_VELOCITY{1400, 1400};
   static constexpr uint32_t CIRCLE_COLOR_START{0xFFFFFFFF};
   static constexpr uint32_t CIRCLE_COLOR_END{0xFF0000FF};
@@ -67,20 +78,51 @@ struct Particle {
     return guess * 0.1f;
   }();
 
+  //-----------------------------------
+  // Methods
+  //-----------------------------------
+
+  //! @brief changes position of the entity based on its velocity
   static void PositionUpdate(ecs::Impl &buffer, component::Position &position,
                              component::Velocity &velocity, float deltaTime);
+
+  //! @brief updates velocity change over time
+  //! @TODO remove or update code, this is currently unused
+  [[deprecated]]
   static void VelocityUpdate(ecs::Impl &buffer, component::Velocity &velocity,
                              float deltaTime);
+
+  //! @brief updates shape / color of the entity over time
+  //! @TODO remove or update code, this is currently unused
+  [[deprecated]]
   static void ShapwUpdate(ecs::Impl &buffer, component::shape::Circle &circle,
                           float deltaTime);
+
+  //! @brief updates lifetime of the entity
+  //!
+  //! lifetime is checked by ecs::System::Flush()
+  //! and object is destroyed when lifetime is over
+  //!
+  //! if lifetime is >1ms returns true
+  //! else return false
+  //! @return bool
   static bool LifeTimeUpdate(ecs::Impl &buffer, component::Lifetime &lifeTime,
                              float deltaTime);
+
+  //! @brief Creates new entity and adds Bundle components to it
+  //!
+  //! @param position starting position of the entity
+  //! @param velocity entity's velocity, its ptr instead reference so by passing
+  //!        nullptr it defaults to standard velocity and random direction
+  //! @param circle shape of the entity and collider
   static void Create(ecs::Impl &buffer, const component::Position &position,
                      const component::Velocity *const velocity = nullptr,
                      const component::shape::Circle &circle =
                          component::Particle::DEFAULT_CIRCLE);
 
 private:
+  // since this class contains only static methods
+  // this "cheapCheat" is a dirty solution to make this class copyable
   bool cheapCheat{};
 };
 

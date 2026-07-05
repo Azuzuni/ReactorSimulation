@@ -41,7 +41,6 @@ add_subdirectory(utils)
 add_subdirectory(scene)
 add_subdirectory(component)
 add_subdirectory(core)
-add_subdirectory(physics)
 
 # ------------------------------------------
 # 1. Exec

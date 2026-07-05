@@ -4,7 +4,10 @@
 #include <random>
 namespace component {
 
+//! @brief decay is timer to apply cooldown to spawned particles
+//! @see component::Fuel
 struct Decay {
+  // default cooldown before first decay
   std::chrono::milliseconds lifeTime{1000};
   Decay(const std::chrono::milliseconds &lifeTime) : lifeTime(lifeTime) {}
   Decay() {

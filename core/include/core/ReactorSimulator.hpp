@@ -6,14 +6,18 @@
 #include <memory>
 #include <unordered_map>
 
-//! Core class for simulation
-/*!
- * This class works as entry point to the project
- * Run() to initialize the simulation.
- */
+//! @brief Core class of the simulation
+//!
+//! ReactorSimulator handles Logic and Rendering of the simulation
+//! call Run() method to start everything.
 class ReactorSimulator {
 
+  //! kTickRate fixed logic update rate
+  //! @see Logic()
   const float kTickRate = 120.0f;
+
+  //! kDt fixed deltatime
+  //! @see Logic()
   const float kDt = 1.0f / kTickRate;
 
   ReactorSimulator() = delete;
@@ -22,34 +26,50 @@ class ReactorSimulator {
   ReactorSimulator &operator=(ReactorSimulator &&) = delete;
   ReactorSimulator &operator=(const ReactorSimulator &) = delete;
 
-  //! @param mScenes
-  /*!
-   * Contains all available scenes
-   * @param key -> @sa SceneEnum
-   * @param value -> @sa SceneIF
-   */
-  std::unordered_map<int, std::unique_ptr<scene::SceneIF>> mScenes{};
+  //! @brief contains map of available scenes
+  //!
+  //! @TODO replace map of scenes with scene loader
+  //! that reads scene definitions from JSON
+  //!
+  //! key @see SceneEnum
+  //! value @see SceneIF
+  std::unordered_map<scene::SceneEnum, std::unique_ptr<scene::SceneIF>>
+      mScenes{};
 
-  //! @param mEcs -> buffers containing data for logic and rendering
+  //! mEcs buffer containing data for logic and rendering
+  //! @see ecs::Impl
   ecs::Impl mEcs{};
 
-  //! @param mRenderer -> rendering
+  //! mRenderer selected implementation Renderer (CRTP)
+  //! @see RenderBackend
   RenderBackend mRenderer;
 
+  //! mInputData Struct keeping input informations returned by
+  //! mRenderer.Update()
+  //! @see RenderBackend
   InputData mInputData{};
 
+  //! @brief operates on mEcs buffer to prepare frame to render
+  //!
+  //! @see ecs::Impl
+  //! @see RenderBackend
   void Logic();
+
+  //! @brief renders components representing shapes from mEcs
+  //!
+  //! @see ecs::Impl
+  //! @see Logic()
   void Render();
 
-  /**
-   * @brief main loop keeping the program running
-   */
+public:
+  //! @brief Starting point of simulation
   void Run();
 
-public:
-  /**
-   * @brief Forwards Arguments on compiletime to the Renderer constructor
-   */
-  ReactorSimulator(int, int, const char *);
+  //! @brief Initializes values, and loads scenes
+  //!
+  //! @param width is the width of the starting window
+  //! @param height is the height of the starting window
+  //! @param title is the name of the window
+  ReactorSimulator(int width, int height, const char *title);
   ~ReactorSimulator() = default;
 };
